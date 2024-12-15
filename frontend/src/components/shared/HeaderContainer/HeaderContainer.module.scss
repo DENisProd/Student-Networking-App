@@ -1,0 +1,25 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: center;
+    width: 100%;
+    padding: 0 var(--global-gap);
+
+    & .btn_skeleton {
+        width: 36px;
+        height: 36px;
+        background: var(--background-tile);
+        border-radius: var(--border-radius05);
+    }
+
+    & .text {
+        font-size: 22px;
+        font-weight: 600;
+        align-items: center;
+        text-align: center;
+    }
+
+    & .right {
+        justify-self: self-end;
+    }
+}

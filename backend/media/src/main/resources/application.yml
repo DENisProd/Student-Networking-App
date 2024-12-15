@@ -1,0 +1,42 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  datasource:
+    url: jdbc:postgresql://localhost:5432/media
+    username: denis
+    password: password
+
+    hikari:
+      auto-commit: false
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: password
+
+#    template:
+#      exchange: internal.exchange
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+      #      ddl-auto: create-drop
+    show-sql: false
+
+s3:
+  url: http://localhost:9000
+  accessKey: BIMpjKertvPwo4WRqQXT
+  secretKey: Lcj1bqV1ZjVMhLJvAtdNjETWHO7cBkzASRjkinrk
+  bucketName: media
+
+server:
+  port: 8082
+
+ffmpeg_path: C:\Users\Denis\AppData\Local\Programs\FFmpeg\bin\ffmpeg.exe

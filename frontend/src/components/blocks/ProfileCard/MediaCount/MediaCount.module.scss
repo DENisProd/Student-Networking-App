@@ -1,0 +1,20 @@
+.square_container {
+    position: absolute;
+    top: var(--global-gap2);
+    display: flex;
+    gap: var(--global-gap);
+    width: 97%;
+
+    z-index: 11;
+}
+
+.square {
+    background-color: var(--background-tile);
+    height: 8px;
+    flex-grow: 1;
+    border-radius: 4px;
+
+    &.selected {
+        background-color: var(--border-color3);
+    }
+}

@@ -1,0 +1,35 @@
+.GridLayout {
+    display: grid;
+    padding: var(--global-gap);
+    gap: var(--global-gap);
+    align-items: center;
+
+
+    &.col1 {
+        grid-template-columns: 1fr;
+    }
+
+    &.col2 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    &.col3 {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    &.col4 {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+
+    &.col5 {
+        grid-template-columns: repeat(1fr, 5);
+    }
+
+    &.no_padding {
+        padding: 0 !important;
+    }
+
+    &.center {
+        text-align: center;
+    }
+}

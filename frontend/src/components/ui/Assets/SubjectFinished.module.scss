@@ -1,0 +1,20 @@
+.finished {
+    position: absolute;
+    top: -40px;
+    left: -120px;
+    width: 100%;
+    height: 250px;
+    scale: 2.4;
+    stroke: var(--border-color3) !important;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+    
+    &.visible {
+        opacity: 1;
+    }
+
+    & path {
+        stroke: var(--border-color3);
+    }
+}

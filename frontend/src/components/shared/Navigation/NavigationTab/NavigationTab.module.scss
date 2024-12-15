@@ -1,0 +1,27 @@
+.NavigationTab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &.active {
+        position: relative;
+        // background: var(--primary);
+        // padding: var(--global-gap);
+        // border-radius: calc(var(--border-radius)*2);
+        &::after {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--primary2);
+            position: absolute;
+            bottom: -5px;
+            border-radius: 50%;
+        }
+
+        & svg {
+            // stroke: var(--text-contrast) !important;
+            stroke: var(--primary2) !important;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+.container {
+    padding: calc(var(--global-gap) * 5);
+    position: fixed;
+    bottom: 4rem;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+
+    & button {
+    
+    }
+}

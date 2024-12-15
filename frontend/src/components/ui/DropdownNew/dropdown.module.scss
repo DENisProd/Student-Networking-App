@@ -1,0 +1,114 @@
+.container {
+  position: relative;
+  width: 100%;
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 400;
+
+  & .arrow {
+    position: absolute;
+    right: var(--global-gap2);
+    top: 0.6rem;
+    transition: all 0.2s ease-out;
+
+    & path {
+      fill: var(--text);
+    }
+
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+
+  & input {
+    border: 1px solid transparent;
+    font-size: 1rem;
+    color: var(--text);
+    font-weight: 600;
+
+    &.inverted {
+      background: var(--background);
+      border: 1px solid var(--background);
+    }
+  }
+
+  & .nonWritableInput {
+    width: 100%;
+    padding: 0.8rem 2.3rem 0.8rem 1.3rem;
+    border-radius: var(--border-radius05);
+    background: var(--background-tile);
+    border: 1px solid var(--background-tile);
+    outline: none;
+    user-select: none;
+    cursor: pointer;
+    text-align: left;
+    
+
+    &.inverted {
+      background: var(--background);
+      border: 1px solid var(--background);
+    }
+
+    & .placeholder {
+      font-weight: 400;
+      color: var(--secondary);
+    }
+
+    &:focus {
+      border: 1px solid var(--primary2);
+    }
+  }
+
+  & input {
+    width: 100%;
+    padding: var(--global-gap) var(--global-gap2);
+    border-radius: var(--border-radius05);
+    background: var(--background-tile);
+    border: 1px solid var(--background-tile);
+    outline: none;
+
+    &:focus {
+      border: 1px solid var(--primary2);
+    }
+  }
+
+  & .menu {
+    width: 100%;
+    z-index: 100;
+    position: absolute;
+    top: calc(var(--global-gap2) * 2.7);
+    background: var(--background-tile);
+    text-align: left;
+    border-radius: var(--border-radius05);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease-out;
+    box-shadow: 0 20px 20px 0 rgba(0,0,0,0.3);
+    overflow: hidden;
+    margin-bottom: 1rem;
+    //border: 1px solid var(--primary-dark);
+
+    &.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    & .option {
+      padding: var(--global-gap) var(--global-gap2);
+      border: 1px solid transparent;
+      cursor: pointer;
+
+      &.selected {
+        background: var(--background);
+      }
+
+      &:hover {
+        background: var(--background);
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--background);
+      }
+    }
+  }
+}

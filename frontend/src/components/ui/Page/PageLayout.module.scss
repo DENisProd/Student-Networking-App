@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1024px;
+    min-height: 100%;
+    position: relative;
+    
+    &.adaptive {
+        flex-direction: row;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .container {
+        &.adaptive {
+            flex-direction: column;
+        }
+    }
+}

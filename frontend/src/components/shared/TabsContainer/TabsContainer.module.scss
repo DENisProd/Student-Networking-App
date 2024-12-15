@@ -1,0 +1,10 @@
+.TabsContainer {
+    display: flex;
+    gap: var(--global-gap);
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        opacity: 0;
+        height: 0;
+    }
+}

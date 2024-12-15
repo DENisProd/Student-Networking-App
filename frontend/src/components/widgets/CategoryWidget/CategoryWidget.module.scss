@@ -1,0 +1,14 @@
+.category {
+    display: flex;
+    align-items: center;
+    gap: var(--global-gap);
+    border-radius: var(--border-radius05);
+    background: var(--background);
+    padding: var(--global-gap) var(--global-gap2) var(--global-gap) var(--global-gap);
+    width: fit-content;
+    height: 48px;
+
+    &.negative {
+        background: var(--background-tile);
+    }
+}

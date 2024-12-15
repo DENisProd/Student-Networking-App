@@ -1,0 +1,50 @@
+.container {
+    margin-top: var(--global-gap2);
+}
+
+.upload_wrapper {
+    position: relative;
+    display: inline-block;
+}
+.file_input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+.saved_image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--global-gap);
+    position: relative;
+
+    & img {
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        border: 1px solid transparent;
+        object-fit: cover;
+
+        &:hover {
+            border: 1px solid var(--primary2);
+        }
+
+        &.selected {
+            border-color: var(--primary2);
+        }
+    }
+
+    & .remove_button {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background: var(--background-tile) !important;
+    }
+}
+
+.error_message {
+    color: var(--danger);
+}

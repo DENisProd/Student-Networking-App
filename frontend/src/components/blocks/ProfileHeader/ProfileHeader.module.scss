@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    gap: var(--global-gap3);
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    & .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: var(--global-gap);
+        align-items: center;
+    }
+
+    & p {
+        color: var(--secondary);
+        display: flex;
+        align-items: center;
+        gap: var(--global-gap);
+
+        & svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+    
+}
+
+@media screen and (max-width: 720px) {
+    .container {
+        flex-direction: column;
+        justify-content: center;
+    }
+}

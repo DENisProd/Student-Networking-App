@@ -1,0 +1,66 @@
+.Card {
+    width: 100%;
+    background: var(--background-tile);
+    border-radius: var(--border-radius);
+    padding: var(--global-gap2);
+    box-shadow: 0px 9px 25px -28px rgba(0, 0, 0, 0.2);
+
+    &.user_select_block {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    &.transparent {
+        background: var(--background-tile-rgba);
+        backdrop-filter: blur(15px);
+    }
+
+    & .header {
+        padding: 0 var(--global-gap2) var(--global-gap2) 0;
+        border-bottom: 2px solid var(--border-color2);
+        margin-bottom: var(--global-gap);
+        width: 100%;
+
+        & .header_flex {
+            display: flex;
+            align-items: center;
+            gap: var(--global-gap);
+            font-weight: 600;
+        }
+
+        & .subtitle {
+            margin-top: 4px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 400;
+        }
+    }
+
+    & .body {
+        padding: 0;
+    }
+
+    &.negative {
+        background: var(--background) !important;
+    }
+
+    &.small {
+        padding: 0 var(--global-gap);
+
+        & .body {
+            padding: var(--global-gap) 0;
+        }
+        & .header {
+            padding: var(--global-gap) 0;
+        }
+    }
+
+    &.medium {
+        padding: var(--global-gap) var(--global-gap2);
+    }
+
+    &.square {
+        border-radius: var(--border-radius05);
+    }
+}

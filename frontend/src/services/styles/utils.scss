@@ -1,0 +1,14 @@
+@function cl($name) {
+    @return var(--color-#{unquote($name)});
+}
+
+@function HexToRGB($hex) {
+    @return red($hex), green($hex), blue($hex);
+}
+
+@function HEXtoRGBA($hex, $alpha) {
+    $red: red($hex);
+    $green: green($hex);
+    $blue: blue($hex);
+    @return rgba($red, $green, $blue, $alpha);
+  }

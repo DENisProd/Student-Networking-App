@@ -1,0 +1,108 @@
+.container {
+    position: relative;
+    width: 100%;
+
+    & .hidden_select {
+        display: none;
+
+        &:focus > .select_header {
+            border: 1px solid var(--primary2);
+        }
+    }
+
+    & .select_header {
+        margin-top: 6px;
+        display: flex;
+        gap: var(--global-gap);
+        align-items: center;
+        width: 100%;
+        padding: var(--global-gap) var(--global-gap2);
+        border-radius: var(--border-radius);
+        border: 1px solid var(--border-color);
+        background: var(--background-tile);
+        color: var(--text);
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 24px;
+        min-height: 41.6px;
+        outline: none;
+        cursor: pointer;
+        user-select: none;
+
+        &.inverted_colors {
+            background: var(--background) !important;
+        }
+
+        &::placeholder {
+            color: var(--border-color2);
+        }
+
+        &.placeholder {
+            color: var(--border-color2);
+        }
+
+        &:focus {
+            border: 1px solid var(--primary2);
+        }
+
+        &.error {
+            border: 1px solid var(--danger);
+        }
+    }
+
+    & .title {
+        color: var(--text);
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.2rem;
+    }
+    & .error {
+        margin-top: 4px;
+        color: var(--danger);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+    }
+    
+    .options {
+        position: absolute;
+        width: 100%;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background-color: var(--background-tile);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        z-index: 1000;
+        max-height: 225px;
+        overflow-y: auto;
+        font-size: 1rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease-in-out;
+        color: var(--text);
+
+        &.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        & li {
+            padding: var(--global-gap1) var(--global-gap2);
+            display: flex;
+            align-items: center;
+            gap: var(--global-gap);
+            cursor: pointer;
+            // border-radius: var(--border-radius);
+            font-weight: 400;
+        }
+        
+        & li.selected {
+            background-color: var(--border-color2);
+        }
+        
+        & li:hover {
+            background-color: var(--border-color);
+        }
+    }
+}

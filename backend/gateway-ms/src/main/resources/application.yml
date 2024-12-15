@@ -1,0 +1,20 @@
+server:
+  port: 8090
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: category
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/v1/categories/**
+        - id: finder
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/profiles/**
+        - id: media
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/media/**
+            - Method=GET

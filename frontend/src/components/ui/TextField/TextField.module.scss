@@ -1,0 +1,104 @@
+.TextInput {
+    margin-top: 8px;
+    position: relative;
+    font-family: Inter, Arial, sans-serif;
+    
+    & .icon {
+        position: absolute;
+        left: var(--global-gap1);
+        top: 54%;
+    }
+
+    & textarea {
+        width: 100%;
+        padding: var(--global-gap) var(--global-gap2);
+        border-radius: var(--border-radius05);
+        border: 1px solid var(--border-color);
+        background: var(--background-tile);
+        color: var(--text);
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 24px;
+        outline: none;
+        resize: none;
+
+        &::placeholder {
+            // padding-left: 26px;
+            font-size: 1rem;
+            color: var(--text-color-secondary2);
+            font-weight: 400;
+        }
+
+        &:focus {
+            border: 1px solid var(--primary2);
+        }
+        &:-webkit-autofill, &:-webkit-autofill:focus {
+            background-color: var(--background-tile) !important;
+        }
+
+        &.error {
+            font-size: 1rem;
+            border: 1px solid var(--danger);
+        }
+    }
+
+    & input {
+        width: 100%;
+        padding: var(--global-gap) var(--global-gap2);
+        border-radius: var(--border-radius05);
+        border: 1px solid var(--border-color);
+        background: var(--background-tile);
+        color: var(--text);
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 24px;
+        outline: none;
+        height: 41.6px;
+
+        &::placeholder {
+            // padding-left: 26px;
+            color: var(--text-color-secondary2);
+        }
+
+        &:focus {
+            border: 1px solid var(--primary2);
+        }
+        &:-webkit-autofill, &:-webkit-autofill:focus {
+            background-color: var(--background-tile) !important;
+        }
+
+        &.error {
+            border: 1px solid var(--danger);
+        }
+    }
+
+    &.negative {
+        & input {
+            background: var(--background);
+        }
+        & textarea {
+            background: var(--background);
+        }
+    }
+
+    &.with_icon {
+        & input {
+            padding: var(--global-gap) var(--global-gap3) var(--global-gap) 40px;
+        }
+    }
+
+    & .title {
+        color: var(--text);
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.2rem;
+        margin-bottom: var(--global-gap);
+    }
+    & .error {
+        margin-top: 4px;
+        color: var(--danger);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+    }
+}

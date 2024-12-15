@@ -1,0 +1,10 @@
+.icon {
+    border-radius: var(--global-gap);
+    padding: 4px;
+
+    & svg {
+        height: 100% !important;
+        width: 100% !important;
+        object-fit: cover;
+    }
+}
