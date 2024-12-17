@@ -125,12 +125,13 @@ public class UserProfileService {
         return getUserProfileWithCategories(profile);
     }
 
+    // TODO: Переписать, сделать так, чтобы пользователю не выдавало его анкету и анкеты тех, кого он лайкал
     @Transactional
-    public Page<UserProfileResponseDTO> getRandomUserProfiles(List<String> interests, boolean filtered, Pageable pageable) {
+    public Page<UserProfileResponseDTO> getRandomUserProfiles(List<String> interests, boolean filtered, Pageable pageable, Long currentUserId) {
         Page<UserProfile> userProfiles;
 
         if (filtered) {
-            userProfiles = userProfileRepository.findRandomByMatchingInterests(interests, pageable);
+            userProfiles = userProfileRepository.findRandomByMatchingInterests(currentUserId, interests, pageable);
         } else {
             userProfiles = userProfileRepository.findRandom(pageable);
         }

@@ -13,6 +13,12 @@ spring:
           uri: http://localhost:8081
           predicates:
             - Path=/api/v1/profiles/**
+          filters:
+            - JwtUserIdFilter
+#        - id: auth
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/api/v1/auth/**
         - id: media
           uri: http://localhost:8082
           predicates:

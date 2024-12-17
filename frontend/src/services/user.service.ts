@@ -1,20 +1,25 @@
 import server from "@/middleware/wrappers/server";
 import { UserProfile, UserProfileUpdate } from "./models/UserProfile";
 import { PageableResponse } from "./models/PagebleResponse";
+import axios from "axios";
 
 async function fetchUserProfile(userId: number): Promise<UserProfile> {
     const response = await server.get<UserProfile>("profiles/" + userId);
     return response.data;
 }
 
-async function fetchRandomUserProfiles(page: number, size: number): Promise<UserProfile[]> {
-    const response = await server.get<PageableResponse<UserProfile[]>>(`profiles/random?size=${size}&page=${page}`);
+async function fetchRandomUserProfiles(page: number, size: number, profileId: number): Promise<UserProfile[]> {
+    const response = await server.get<PageableResponse<UserProfile[]>>(`profiles/random?size=${size}&page=${page}&profile=${profileId}`);
     return response.data.content;
 }
 
 async function updateUserProfile(userProfile: UserProfileUpdate) {
-    console.log(userProfile);
     const response = await server.put<UserProfile>("profiles/", userProfile);
+    return response.data;
+}
+
+async function loginUser(userId: number) {
+    const response = await server.post(`auth/login?userId=${userId}`);
     return response.data;
 }
 
@@ -46,4 +51,5 @@ export default {
     updateUserProfile,
     getUserProfileUpdate,
     addMedia,
+    loginUser,
 };

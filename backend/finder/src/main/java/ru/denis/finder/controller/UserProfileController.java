@@ -33,8 +33,12 @@ public class UserProfileController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserProfile(@PathVariable("id") Long userId) {
+    public ResponseEntity<?> getUserProfile(
+            @PathVariable("id") Long userId,
+            @RequestHeader(value = "X-User-Id", required = false) Long xUserId
+    ) {
         try {
+            System.out.println("X-User-Id: " + xUserId);
             return ResponseEntity.ok(userProfileService.getByUserId(userId));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
@@ -64,10 +68,11 @@ public class UserProfileController {
 
     @GetMapping("/random")
     public Page<UserProfileResponseDTO> getRandomUserProfiles(
+            @RequestParam(name = "profile", required = false) Long profileId,
             @RequestParam(name = "interests", required = false) List<String> interests,
             @RequestParam(name = "filtered", defaultValue = "false") boolean filtered,
             Pageable pageable
     ) {
-        return userProfileService.getRandomUserProfiles(interests, filtered, pageable);
+        return userProfileService.getRandomUserProfiles(interests, filtered, pageable, profileId);
     }
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const server = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
-    // withCredentials: true,
+    withCredentials: true,
     timeout: 5000,
 });
 

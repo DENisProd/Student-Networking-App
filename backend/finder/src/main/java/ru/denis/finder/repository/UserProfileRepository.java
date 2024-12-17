@@ -13,13 +13,12 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
     @Query("SELECT u FROM UserProfile u ORDER BY function('RANDOM')")
     Page<UserProfile> findRandom(Pageable pageable);
 
-//    @Query("SELECT u FROM UserProfile u WHERE u.interests IN :interests ORDER BY function('RAND')")
-//    Page<UserProfile> findRandomByInterests(List<String> interests, Pageable pageable);
-
     @Query("SELECT u FROM UserProfile u WHERE " +
-                  "EXISTS (SELECT interest FROM u.interests interest WHERE interest IN :interests) " +
-                  "ORDER BY function('RANDOM')")
-    Page<UserProfile> findRandomByMatchingInterests(List<String> interests, Pageable pageable);
+            "u.id <> :currentUserId AND " +
+            "NOT EXISTS (SELECT r FROM React r WHERE r.targetProfile.id = u.id AND r.profile.id = :currentUserId) AND " +
+            "(:filtered = false OR EXISTS (SELECT interest FROM u.interests interest WHERE interest IN :interests)) " +
+            "ORDER BY function('RANDOM')")
+    Page<UserProfile> findRandomByMatchingInterests(Long currentUserId, List<String> interests, Pageable pageable);
 
     Optional<UserProfile> findByUserId (Long userId);
 }

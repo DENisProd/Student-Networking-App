@@ -10,6 +10,7 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileEditPage from "./pages/profile/edit/ProfileEditPage";
 import CategoryManagementPage from "./pages/admin/categories/CategoryManagementPage";
 import SetUserForm from "./components/forms/SetUserForm/SetUserForm";
+import MatchPage from "./pages/match/MatchPage";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                 <Route path={routes.Index} element={<WelcomePage />} />
                 <Route path={routes.Discover} element={<DiscoverPage />} />
                 <Route path={routes.Chat} element={<ChatPage />} />
+                <Route path={routes.Match} element={<MatchPage />} />
                 <Route path={routes.Profile} element={<ProfilePage />} />
                 <Route path={routes.ProfileEdit} element={<ProfileEditPage />} />
                 <Route path={routes.CategoryManagement} element={<CategoryManagementPage />} />

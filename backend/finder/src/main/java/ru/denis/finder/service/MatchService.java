@@ -15,6 +15,9 @@ public class MatchService {
     private final MatchRepository matchRepository;
 
     public Match createMatch(UserProfile user1, UserProfile user2) {
+        List<Match> existedMatch = matchRepository.findByUser1AndUser2(user1, user2);
+        if (!existedMatch.isEmpty()) return null;
+
         Match match = new Match();
         match.setUser1(user1);
         match.setUser2(user2);
@@ -43,5 +46,9 @@ public class MatchService {
 
     public void deleteMatch(Long id) {
         matchRepository.deleteById(id);
+    }
+
+    public List<Match> getMatchesByProfileId(Long profileId) {
+        return matchRepository.findByUser1Id(profileId);
     }
 }

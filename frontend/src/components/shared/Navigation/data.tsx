@@ -16,7 +16,7 @@ export const navigationTabs: INavigationTab[] = [
         icon: <House size={SIZE} color="var(--border-color2)"/>,
     },
     {
-        link: "/favorites",
+        link: "/match",
         label: "Избранное",
         icon: <Star size={SIZE} color="var(--border-color2)" />,
     },

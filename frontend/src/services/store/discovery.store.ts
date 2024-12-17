@@ -6,20 +6,19 @@ interface DiscoveryStore {
     profiles: UserProfile[];
     page: number;
 
-    fetchRandomProfiles: () => void;
+    fetchRandomProfiles: (profileId: number) => void;
 }
 
 export const useDiscoveryStore = create<DiscoveryStore>((set, get) => ({
     profiles: [],
     page: 0,
 
-    fetchRandomProfiles: async () => {
+    fetchRandomProfiles: async (profileId: number) => {
         const { page, profiles } = get();
-
-        userService.fetchRandomUserProfiles(page, 10).then((response) => {
+        userService.fetchRandomUserProfiles(page, 10, profileId).then((response) => {
             set({
                 profiles: [...profiles,...response],
-                page: page + 1
+                // page: page + 1
             });
         })
     }

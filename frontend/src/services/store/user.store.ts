@@ -71,6 +71,10 @@ export const useUserStore = create<UserStore>((set, get) => ({
     userProfile: {} as UserProfile,
 
     fetchUser: (clientId: number) => {
+        userService.loginUser((users[clientId] || users[0]).id)
+        userService.fetchUserProfile((users[clientId] || users[0]).id).then(res => {
+            set({ userProfile: res });
+        })
         set({
             user: users[clientId] || users[0]
         })

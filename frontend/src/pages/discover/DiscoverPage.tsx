@@ -12,14 +12,22 @@ import { useUserStore } from "@/services/store/user.store";
 const DiscoverPage = () => {
     const { profiles, fetchRandomProfiles } = useDiscoveryStore();
     const { sendLike } = useReactStore();
-    const { user, fetchUserProfile } = useUserStore();
+    const { user, fetchUserProfile, userProfile } = useUserStore();
 
     const [currentProfile, setCurrentProfile] = useState<number>(0);
 
     useEffect(() => {
         if (!user) fetchUserProfile();
-        fetchRandomProfiles();
-    }, []);
+    }, [])
+
+    useEffect(() => {
+        if (Object.keys(userProfile).length > 0) {
+            console.log("User profile", userProfile);
+            fetchRandomProfiles(userProfile?.id)
+        } else {
+            fetchUserProfile();
+        }
+    }, [userProfile]);
 
     useEffect(() => {
         console.log("profiles", profiles);
@@ -32,7 +40,7 @@ const DiscoverPage = () => {
             userId: user?.id,
             isLike,
         }).then(res => {
-            if (res) setCurrentProfile(currentProfile+1);
+            setCurrentProfile(currentProfile+1);
         })
     }
 

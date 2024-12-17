@@ -11,6 +11,7 @@ import ru.denis.finder.repository.ReactRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -59,7 +60,7 @@ public class ReactService {
                 true
         );
 
-        return reciprocalReact.isPresent();
+        return reciprocalReact.isPresent() && (!Objects.equals(profileId, targetProfileId));
     }
 
     private ReactDTO convertToReactDTO(React react) {
