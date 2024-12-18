@@ -15,4 +15,5 @@ public class Media {
 
     @Enumerated(EnumType.STRING)
     private FileSize size;
+
 }

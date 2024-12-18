@@ -2,12 +2,17 @@ package ru.denis.finder.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.denis.finder.dto.match.MatchShortResponseDTO;
+import ru.denis.finder.dto.match.MatchUserProfileDTO;
 import ru.denis.finder.model.Match;
 import ru.denis.finder.model.UserProfile;
 import ru.denis.finder.repository.MatchRepository;
+import ru.denis.media.FileSize;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +53,41 @@ public class MatchService {
         matchRepository.deleteById(id);
     }
 
-    public List<Match> getMatchesByProfileId(Long profileId) {
-        return matchRepository.findByUser1Id(profileId);
+    public List<MatchShortResponseDTO> getMatchesByUserId(Long userId) {
+        var matches = matchRepository.findByUserId(userId);
+
+        return matches.stream()
+                .map(match -> {
+                    MatchShortResponseDTO dto;
+                    if (match.getUser1().getUserId().equals(userId))
+                        dto = new MatchShortResponseDTO(match.getId(), convertToMatchUserProfile(match.getUser2()));
+                    else 
+                        dto = new MatchShortResponseDTO(match.getId(), convertToMatchUserProfile(match.getUser1()));
+
+                    if (!hasActiveSubscription(userId)) {
+
+                    } else {
+
+                    }
+
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private MatchUserProfileDTO convertToMatchUserProfile(UserProfile user) {
+        return new MatchUserProfileDTO(
+                user.getId(),
+                user.getAbout(),
+                user.getDescription(),
+                user.getInterests().stream().toList(),
+                user.getTarget(),
+                user.getMediaList().stream().filter(media -> media.getSize().equals(FileSize.BLUR)).toList().get(0)
+        );
+    }
+
+    private boolean hasActiveSubscription(Long userId) {
+        // TODO: Check subscription status logic
+        return false;
     }
 }

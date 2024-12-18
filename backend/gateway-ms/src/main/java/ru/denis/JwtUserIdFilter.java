@@ -6,9 +6,11 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpCookie;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
@@ -57,10 +59,16 @@ public class JwtUserIdFilter extends AbstractGatewayFilterFactory<JwtUserIdFilte
                     return chain.filter(modifiedExchange);
                 } catch (Exception e) {
                     System.err.println("Invalid JWT Token: " + e.getMessage());
+                    return handleUnauthorized(exchange);
                 }
             }
 
-            return chain.filter(exchange);
+            return handleUnauthorized(exchange);
         };
+    }
+
+    private Mono<Void> handleUnauthorized(ServerWebExchange exchange) {
+        exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+        return exchange.getResponse().setComplete();
     }
 }

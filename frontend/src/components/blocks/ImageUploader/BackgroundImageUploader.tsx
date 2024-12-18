@@ -40,7 +40,7 @@ const BackgroundImageUploader = () => {
             .slice(0, maxCards);
 
         setMediaList(mediaListWithPlaceholders);
-        if (Object.keys(userProfile).length === 0 || userProfile?.userId !== user?.id) {
+        if (Object.keys(userProfile).length === 0 && userProfile?.userId !== user?.id) {
             fetchUserProfile();
         }
     }, [userProfile]);
@@ -64,8 +64,13 @@ const BackgroundImageUploader = () => {
 
     const resetTheme = () => {};
 
+    const refresh = () => {
+        fetchUserProfile();
+    }
+
     return (
         <Layout noPadding className={styles.container} center>
+            <Button onClick={refresh}>Обновить</Button>
             <Typography variant="h2" text="Фото и видео профиля" />
             {error && <Typography variant="p" className={styles.error_message} text={error} />} {/* Отображение ошибки */}
             {uploadProgress !== null && (

@@ -1,6 +1,16 @@
+import { Media } from "./Media";
+
 export interface Match {
     id: number;
-    user1: number;
-    user2: number;
-    matchedAt: Date;
+    userId: number;
+    user: MatchUserProfile;
+}
+
+export interface MatchUserProfile {
+    id: number;
+    about: string;
+    description: string;
+    interests: number[];
+    target: number;
+    media: Media
 }

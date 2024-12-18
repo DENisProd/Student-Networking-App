@@ -13,6 +13,12 @@ import ru.denis.media.models.*;
 import ru.denis.media.models.File;
 import ru.denis.media.repository.FileRepository;
 
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,31 +40,38 @@ public class MediaService {
 
     @Async
     public void saveMedia(InputStream inputStream, MediaTypes mediaType, FileOrientation orientation, String callbackTopic, Long entityId) throws IOException {
+        int[] verySmallResolution = getResolution(orientation, 160, 90);
         int[] smallResolution = getResolution(orientation, 320, 180);
         int[] largeResolution = getResolution(orientation, 1280, 720);
 
+        String blurFileName = generateFileName(verySmallResolution);
         String smallFileName = generateFileName(smallResolution);
         String largeFileName = generateFileName(largeResolution);
 
-        MediaDTO[] response = new MediaDTO[2];
+        MediaDTO[] response = new MediaDTO[3];
 
         byte[] data = toByteArray(inputStream);
 
         try (ByteArrayInputStream smallStream = new ByteArrayInputStream(data);
-             ByteArrayInputStream largeStream = new ByteArrayInputStream(data)) {
+             ByteArrayInputStream largeStream = new ByteArrayInputStream(data);
+             ByteArrayInputStream blurStream = new ByteArrayInputStream(data)
+             ) {
 
             if (mediaType == MediaTypes.IMAGE) {
                 var smallFile = saveImage(smallStream, smallFileName + ".jpg", smallResolution, FileSize.SMALL);
                 var largeFile = saveImage(largeStream, largeFileName + ".jpg", largeResolution, FileSize.LARGE);
+                var blurFile = saveImage(blurStream, blurFileName + ".jpg", verySmallResolution, FileSize.BLUR);
 
                 response[0] = new MediaDTO(smallFile, FileSize.SMALL);
                 response[1] = new MediaDTO(largeFile, FileSize.LARGE);
+                response[2] = new MediaDTO(blurFile, FileSize.BLUR);
             } else if (mediaType == MediaTypes.VIDEO) {
                 var smallFile = saveVideo(smallStream, smallFileName + ".mp4", smallResolution, FileSize.SMALL);
                 var largeFile = saveVideo(largeStream, largeFileName + ".mp4", largeResolution, FileSize.LARGE);
 
                 response[0] = new MediaDTO(smallFile, FileSize.SMALL);
                 response[1] = new MediaDTO(largeFile, FileSize.LARGE);
+                response[2] = new MediaDTO(smallFile, FileSize.SMALL); // TODO: change to cover
             } else {
                 throw new IllegalArgumentException("Unsupported media type: " + mediaType);
             }
@@ -75,7 +88,12 @@ public class MediaService {
 
     private String saveImage(InputStream inputStream, String fileName, int[] resolution, FileSize size) throws IOException {
         ByteArrayOutputStream imageOutputStream = new ByteArrayOutputStream();
-        imageProcessorService.resizeAndCompress(inputStream, imageOutputStream, resolution[0], resolution[1]);
+
+        if (size == FileSize.BLUR) {
+            imageProcessorService.resizeAndBlur(inputStream, imageOutputStream, resolution[0], resolution[1], 35.0f);
+        } else {
+            imageProcessorService.resizeAndCompress(inputStream, imageOutputStream, resolution[0], resolution[1]);
+        }
 
         utils.uploadFile(imageOutputStream, fileName, bucketName, "image/jpeg");
         createMedia(fileName, MediaTypes.IMAGE, size);

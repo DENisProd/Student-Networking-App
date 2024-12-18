@@ -1,19 +1,21 @@
 import React from "react";
 import styles from "./ImageTile.module.scss";
 import { Media } from "@/services/models/Media";
+import cn from "classnames";
 
 interface Props {
     src: Media | null;
     alt?: string;
+    horizontal?: boolean
 }
 
 const MEDIA_SERVER_URL = import.meta.env.VITE_MEDIA_BACKEND_URL;
 
-const ImageTile: React.FC<Props> = ({ src, alt }) => {
+const ImageTile: React.FC<Props> = ({ src, alt, horizontal }) => {
     const isVideo = src?.filename?.endsWith(".mp4");
   // poster - preview
     return (
-        <div className={styles.image}>
+        <div className={cn(styles.image, horizontal && styles.horizontal)}>
             {src?.filename ? (
                 <>
                     {isVideo ? (
