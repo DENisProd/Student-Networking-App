@@ -48,16 +48,22 @@ services:
     container_name: post-ms
     build:
       context: ./post-ms/
+    ports:
+      - "8093:8093"
     depends_on:
       - mongodb_container
   gateway-ms:
     container_name: gateway-ms
     build:
       context: ./gateway-ms/
+    ports:
+      - "8090:8090"
   category-ms:
     container_name: category-ms
     build:
       context: ./category-ms/
+    ports:
+      - "8083:8083"
 
 volumes:
   minio:
