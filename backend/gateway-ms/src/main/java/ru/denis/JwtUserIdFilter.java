@@ -50,6 +50,7 @@ public class JwtUserIdFilter extends AbstractGatewayFilterFactory<JwtUserIdFilte
 
                     ServerHttpRequest modifiedRequest = request.mutate()
                             .header("X-User-Id", userId)
+                            .header("X-Access-Token", accessToken)
                             .build();
 
                     ServerWebExchange modifiedExchange = exchange.mutate()

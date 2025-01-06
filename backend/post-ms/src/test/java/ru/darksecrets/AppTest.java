@@ -1,4 +1,4 @@
-package ru.denis;
+package ru.darksecrets;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

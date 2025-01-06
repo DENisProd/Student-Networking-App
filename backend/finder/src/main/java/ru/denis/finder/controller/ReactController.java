@@ -4,13 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.denis.finder.dto.react.ReactDTO;
+import ru.denis.finder.dto.react.ReactResponseDTO;
 import ru.denis.finder.model.React;
 import ru.denis.finder.service.ReactService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/profiles/reacts")
+@RequestMapping("/api/v2/profiles/reacts")
 @RequiredArgsConstructor
 public class ReactController {
     private final ReactService reactService;
@@ -21,15 +22,9 @@ public class ReactController {
         return ResponseEntity.ok(createdReact);
     }
 
-    @GetMapping("/{id}")
-    public React getReact(@PathVariable Long id) {
-        return reactService.getReactById(id)
-                .orElseThrow(() -> new RuntimeException("React not found"));
-    }
-
-    @GetMapping
-    public List<React> getAllReacts() {
-        return reactService.getAllReacts();
+    @GetMapping()
+    public List<ReactResponseDTO> getReacts(@RequestHeader(value = "X-User-Id") Long userId) {
+        return reactService.getReactsByUserId(userId);
     }
 
     @DeleteMapping("/{id}")

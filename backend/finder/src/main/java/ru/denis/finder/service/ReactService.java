@@ -3,16 +3,15 @@ package ru.denis.finder.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.denis.finder.dto.react.ReactDTO;
+import ru.denis.finder.dto.react.ReactResponseDTO;
 import ru.denis.finder.model.Match;
 import ru.denis.finder.model.React;
 import ru.denis.finder.model.UserProfile;
 import ru.denis.finder.repository.ReactRepository;
+import ru.denis.media.FileSize;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +40,21 @@ public class ReactService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public List<ReactResponseDTO> getReactsByUserId (Long userId) {
+        List<React> reacts = reactRepository.findByUserId(userId);
+
+        if (reacts == null || reacts.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return reacts.stream()
+                .map(react -> new ReactResponseDTO(
+                        react.getId(),
+                        matchService.convertToMatchUserProfile(react.getProfile(), FileSize.BLUR)
+                ))
+                .toList();
     }
 
     private void createReact (UserProfile profile, UserProfile targetProfile, Boolean isLiked) {

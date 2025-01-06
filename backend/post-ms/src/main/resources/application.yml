@@ -1,0 +1,38 @@
+spring:
+#  profile: dev
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  application:
+    name: post-app
+  rabbitmq:
+    host: ${RABBIT_HOST}
+    port: 5672
+    username: ${RABBIT_USERNAME}
+    password: ${RABBIT_PASSWORD}
+    queue: ${RABBIT_QUEUE}
+
+    listener:
+      simple:
+        acknowledge-mode: auto
+  data:
+    mongodb:
+#      uri: mongodb://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@${MONGO_DB_HOST}:27017/posts?authSource=admin
+      authentication-database: admin
+      username: ${MONGO_DB_USERNAME}
+      password: ${MONGO_DB_PASSWORD}
+      database: posts
+      port: 27017
+      host: localhost
+#      host: ${MONGO_DB_HOSTNAME}
+      auto-index-creation: true
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+server:
+  port: 8093
+
+api:
+  media_server: http://localhost:8082/api/v2/
+  category_server: http://localhost:8083/api/v2/categories

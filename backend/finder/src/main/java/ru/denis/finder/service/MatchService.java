@@ -60,9 +60,9 @@ public class MatchService {
                 .map(match -> {
                     MatchShortResponseDTO dto;
                     if (match.getUser1().getUserId().equals(userId))
-                        dto = new MatchShortResponseDTO(match.getId(), convertToMatchUserProfile(match.getUser2()));
-                    else 
-                        dto = new MatchShortResponseDTO(match.getId(), convertToMatchUserProfile(match.getUser1()));
+                        dto = new MatchShortResponseDTO(match.getId(), convertToMatchUserProfile(match.getUser2(), FileSize.SMALL));
+                    else
+                        dto = new MatchShortResponseDTO(match.getId(), convertToMatchUserProfile(match.getUser1(), FileSize.SMALL));
 
                     if (!hasActiveSubscription(userId)) {
 
@@ -75,14 +75,14 @@ public class MatchService {
                 .collect(Collectors.toList());
     }
 
-    private MatchUserProfileDTO convertToMatchUserProfile(UserProfile user) {
+    public MatchUserProfileDTO convertToMatchUserProfile(UserProfile user, FileSize fileSize) {
         return new MatchUserProfileDTO(
                 user.getId(),
                 user.getAbout(),
                 user.getDescription(),
                 user.getInterests().stream().toList(),
                 user.getTarget(),
-                user.getMediaList().stream().filter(media -> media.getSize().equals(FileSize.BLUR)).toList().get(0)
+                user.getMediaList().stream().filter(media -> media.getSize().equals(fileSize == null ? FileSize.BLUR : fileSize)).toList()
         );
     }
 

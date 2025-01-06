@@ -12,6 +12,6 @@ public record MatchUserProfileDTO(
         String description,
         List<Long> interests,
         Long target,
-        Media media
+        List<Media> mediaList
 ) {
 }

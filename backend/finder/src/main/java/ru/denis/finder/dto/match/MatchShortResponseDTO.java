@@ -4,6 +4,6 @@ import ru.denis.finder.model.UserProfile;
 
 public record MatchShortResponseDTO(
         Long id,
-        MatchUserProfileDTO user
+        MatchUserProfileDTO profile
 ) {
 }

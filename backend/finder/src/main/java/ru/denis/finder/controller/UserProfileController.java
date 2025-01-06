@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/profiles")
+@RequestMapping("/api/v2/profiles")
 @AllArgsConstructor
 public class UserProfileController {
 
@@ -34,12 +34,24 @@ public class UserProfileController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/")
     public ResponseEntity<?> getUserProfile(
             @RequestHeader(value = "X-User-Id") Long userId
     ) {
         try {
             return ResponseEntity.ok(userProfileService.getByUserId(userId));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserProfileById(
+            @RequestHeader(value = "X-User-Id") Long userId,
+            @PathVariable("id") Long profileId
+    ) {
+        try {
+            return ResponseEntity.ok(userProfileService.getByProfileId(profileId));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

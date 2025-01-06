@@ -131,9 +131,9 @@ public class UserProfileService {
         Page<UserProfile> userProfiles;
 
         if (filtered) {
-            userProfiles = userProfileRepository.findRandomByMatchingInterests(currentUserId, interests, pageable);
+            userProfiles = userProfileRepository.findRandomByMatchingInterests(currentUserId, interests, false, pageable);
         } else {
-            userProfiles = userProfileRepository.findRandom(pageable);
+            userProfiles = userProfileRepository.findRandom(currentUserId, pageable);
         }
 
         List<UserProfileResponseDTO> dtoList = userProfiles.getContent()
@@ -221,5 +221,17 @@ public class UserProfileService {
                 target,
                 profile.getMediaList()
         );
+    }
+
+    public UserProfileResponseDTO getByProfileId(Long profileId) {
+        UserProfile userProfile = userProfileRepository.findById(profileId).get();
+//                .orElseGet(() -> {
+//                    if (!doesUserExist(user)) {
+//                        throw new NoSuchElementException("User does not exist");
+//                    }
+//
+//                });
+
+        return getUserProfileWithCategories(userProfile);
     }
 }

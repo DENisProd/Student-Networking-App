@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.*;
 import ru.denis.finder.service.MatchService;
 
 @RestController
-@RequestMapping("/api/v1/profiles/matches")
+@RequestMapping("/api/v2/profiles/matches")
 @RequiredArgsConstructor
 public class MatchController {
     private final MatchService matchService;
 
     @GetMapping("")
     public ResponseEntity<?> fetchMatchesByProfileId (@RequestHeader(value = "X-User-Id") Long userId) {
-//        try {
+        try {
             return ResponseEntity.ok(matchService.getMatchesByUserId(userId));
-//        } catch (Exception e) {
-//            return ResponseEntity.notFound().build();
-//        }
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

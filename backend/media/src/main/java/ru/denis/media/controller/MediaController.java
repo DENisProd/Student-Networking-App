@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @RestController
-@RequestMapping("/api/v1/media")
+@RequestMapping("/api/v2/media")
 @AllArgsConstructor
 @CrossOrigin(value = "*")
 public class MediaController {

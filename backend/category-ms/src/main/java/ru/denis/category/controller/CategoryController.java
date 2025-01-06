@@ -13,15 +13,26 @@ import ru.denis.category.service.CategoryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/categories")
+@RequestMapping("/api/v2/categories")
 @AllArgsConstructor
 public class CategoryController {
 
     private final CategoryService categoryService;
 
     @GetMapping("/")
-    public Page<CategoryDTO> getAllCategories(@RequestParam("type") String type, Pageable pageable) {
-        return categoryService.findAll(CategoryType.valueOf(type), pageable);
+    public ResponseEntity<?> getAllCategories(@RequestParam("type") String type, Pageable pageable) {
+        CategoryType _type = CategoryType.CATEGORY;
+
+        if (type != null && !type.isEmpty()) {
+            try {
+                _type = CategoryType.valueOf(type.toUpperCase());
+            } catch (IllegalArgumentException e) {
+
+            }
+        }
+
+        Page<CategoryDTO> categories = categoryService.findAll(_type, pageable);
+        return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/search")
