@@ -2,6 +2,7 @@ package ru.denis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import ru.denis.configuration.EnvInitializer;
 
 @SpringBootApplication
 public class GatewayApplication
