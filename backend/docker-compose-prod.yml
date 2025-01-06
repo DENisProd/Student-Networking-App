@@ -49,7 +49,15 @@ services:
     build:
       context: ./post-ms/
     depends_on:
-      mongodb_container
+      - mongodb_container
+  gateway-ms:
+    container_name: gateway-ms
+    build:
+      context: ./gateway-ms/
+  category-ms:
+    container_name: category-ms
+    build:
+      context: ./category-ms/
 
 volumes:
   minio:

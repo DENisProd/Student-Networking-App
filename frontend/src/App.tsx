@@ -9,22 +9,24 @@ import BottomNavigation from "./components/shared/Navigation/BottomNavigation/Bo
 import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileEditPage from "./pages/profile/edit/ProfileEditPage";
 import CategoryManagementPage from "./pages/admin/categories/CategoryManagementPage";
-import SetUserForm from "./components/forms/SetUserForm/SetUserForm";
 import MatchPage from "./pages/match/MatchPage";
+import MockLoginPage from "./pages/login/MockLoginPage";
+import UserFormPage from "./pages/form/UserFormPage";
 
 function App() {
 
     return (
         <MainLayout>
-            <SetUserForm />
             <Routes>
-                <Route path={routes.Index} element={<WelcomePage />} />
+                <Route path={routes.Index} index element={<WelcomePage />} />
                 <Route path={routes.Discover} element={<DiscoverPage />} />
                 <Route path={routes.Chat} element={<ChatPage />} />
                 <Route path={routes.Match} element={<MatchPage />} />
                 <Route path={routes.Profile} element={<ProfilePage />} />
+                <Route path={routes.Form + "/:profileId"} element={<UserFormPage />} />
                 <Route path={routes.ProfileEdit} element={<ProfileEditPage />} />
                 <Route path={routes.CategoryManagement} element={<CategoryManagementPage />} />
+                <Route path={routes.Login} element={<MockLoginPage />} />
             </Routes>
             <BottomNavigation />
         </MainLayout>

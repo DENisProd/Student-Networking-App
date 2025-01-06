@@ -6,16 +6,16 @@ import cn from "classnames";
 interface Props {
     src: Media | null;
     alt?: string;
-    horizontal?: boolean
+    square?: boolean
 }
 
 const MEDIA_SERVER_URL = import.meta.env.VITE_MEDIA_BACKEND_URL;
 
-const ImageTile: React.FC<Props> = ({ src, alt, horizontal }) => {
+const ImageTile: React.FC<Props> = ({ src, alt, square }) => {
     const isVideo = src?.filename?.endsWith(".mp4");
   // poster - preview
     return (
-        <div className={cn(styles.image, horizontal && styles.horizontal)}>
+        <div className={cn(styles.image, square && styles.square)}>
             {src?.filename ? (
                 <>
                     {isVideo ? (

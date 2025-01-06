@@ -35,5 +35,5 @@ spring:
             - Method=GET
 
 app:
-  cors: http://localhost:3000
+  cors: ${CLIENT_URL}
 #  cors: http://localhost:5173

@@ -29,9 +29,9 @@
         }
     }
 
-    &.horizontal {
-        // & img, video {
-        //     aspect-ratio: 16/9;
-        // }
+    &.square {
+        & img, video {
+            aspect-ratio: 1/1;
+        }
     }
 }

@@ -1,9 +1,13 @@
 import ProfileHeader from "@/components/blocks/ProfileHeader/ProfileHeader";
 import HeaderContainer from "@/components/shared/HeaderContainer/HeaderContainer";
 import BackButton from "@/components/ui/BackButton/BackButton";
+import Button from "@/components/ui/Button/Button";
 import Layout from "@/components/ui/Layout/Layout";
 import Typography from "@/components/ui/Typography/Typography";
+import { routes } from "@/routes/routes";
 import { useUserStore } from "@/services/store/user.store";
+import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 
 const ProfilePage = () => {
     const { user } = useUserStore();
@@ -16,6 +20,9 @@ const ProfilePage = () => {
             {user?.id ? (
                 <>
                     <ProfileHeader />
+                    <Link to={routes.Login}>
+                        <Button>Войти в аккаунт (mock)</Button>
+                    </Link>
                 </>
             ) : (
                 <Layout>

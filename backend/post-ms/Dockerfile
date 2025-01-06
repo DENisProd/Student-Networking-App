@@ -8,6 +8,4 @@ COPY .env.prod /app/.env
 
 WORKDIR /app
 
-EXPOSE 8080
-
 ENTRYPOINT ["java", "-jar", "post-ms-1.0-SNAPSHOT.jar"]

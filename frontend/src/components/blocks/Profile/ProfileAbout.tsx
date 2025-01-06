@@ -29,7 +29,6 @@ const ProfileAbout = () => {
     });
 
     const onSubmitHandler = handleSubmit((data) => {
-        console.log(data);
         updateUser({ ...data });
         fetchUserProfile();
     });

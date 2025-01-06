@@ -2,8 +2,8 @@ import { Media } from "./Media";
 
 export interface Match {
     id: number;
-    userId: number;
-    user: MatchUserProfile;
+    profileId: number;
+    profile: MatchUserProfile;
 }
 
 export interface MatchUserProfile {
@@ -12,5 +12,5 @@ export interface MatchUserProfile {
     description: string;
     interests: number[];
     target: number;
-    media: Media
+    mediaList: Media[]
 }

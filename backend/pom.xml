@@ -61,24 +61,17 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>com.google.cloud.tools</groupId>
-                    <artifactId>jib-maven-plugin</artifactId>
-                    <version>3.4.2</version>
-                    <configuration>
-                        <from>
-                            <image>eclipse-temurin:19</image>
-                        </from>
-                        <to>
-                            <tags>
-                                <tag>latest</tag>
-                            </tags>
-                        </to>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.maven.plugin.version}</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
                     <executions>
                         <execution>
                             <goals>

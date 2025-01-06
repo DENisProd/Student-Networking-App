@@ -1,12 +1,13 @@
 import { create } from "zustand";
-import Reacts from "../models/Reacts";
+import Reacts, { ReactResponse } from "../models/Reacts";
 import reactsService from "../reacts.service";
 
 interface ReactStore {
-    sentReacts: Reacts[];
-    outgoingReacts: Reacts[];
+    sentReacts: ReactResponse[];
+    outgoingReacts: ReactResponse[];
 
     sendLike: (react: Reacts) => Promise<boolean>;
+    fetchReacts: () => void;
 }
 
 export const useReactStore = create<ReactStore>((set, get) => ({
@@ -18,4 +19,11 @@ export const useReactStore = create<ReactStore>((set, get) => ({
         const response = await reactsService.createReact(react);
         return !!response;
     },
+    fetchReacts: () => {
+        reactsService.fetchOutgoingReacts().then(res => {
+            set({
+                outgoingReacts: res
+            })
+        })
+    }
 }));

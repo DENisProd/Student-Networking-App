@@ -1,10 +1,9 @@
 import server from "@/middleware/wrappers/server";
 import { UserProfile, UserProfileUpdate } from "./models/UserProfile";
 import { PageableResponse } from "./models/PagebleResponse";
-import axios from "axios";
 
-async function fetchUserProfile(userId: number): Promise<UserProfile> {
-    const response = await server.get<UserProfile>("profiles/" + userId);
+async function fetchUserProfile(userId: number | null): Promise<UserProfile> {
+    const response = await server.get<UserProfile>("profiles/" + (userId || ""));
     return response.data;
 }
 

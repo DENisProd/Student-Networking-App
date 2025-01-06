@@ -72,7 +72,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
     fetchUser: (clientId: number) => {
         userService.loginUser((users[clientId] || users[0]).id)
-        userService.fetchUserProfile((users[clientId] || users[0]).id).then(res => {
+        userService.fetchUserProfile(null).then(res => {
             set({ userProfile: res });
         })
         set({
@@ -89,8 +89,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
         })
     },
     fetchUserProfile: () => {
-        const { user } = get();
-        userService.fetchUserProfile(user.id).then(res => {
+        userService.fetchUserProfile(null).then(res => {
             set({ userProfile: res });
         })
     },
