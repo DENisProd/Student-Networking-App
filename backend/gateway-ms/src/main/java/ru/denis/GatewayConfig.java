@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GatewayConfig {
-    @Bean
-    public JwtUserIdFilter jwtUserIdFilter() {
-        return new JwtUserIdFilter();
-    }
+//    @Bean
+//    public JwtUserIdFilter jwtUserIdFilter() {
+//        return new JwtUserIdFilter();
+//    }
 }

@@ -9,13 +9,13 @@ import javax.crypto.SecretKey;
 
 @Service
 public class AuthService {
-    private final SecretKey secretKey = Keys.hmacShaKeyFor("mySuperSecureAndLongSecretKey123456789012".getBytes());
-    private final long expirationMs = 3600000;
-
-    public String generateToken(Long userId) {
-        return Jwts.builder()
-                .setSubject(userId.toString())
-                .signWith(secretKey)
-                .compact();
-    }
+//    private final SecretKey secretKey = Keys.hmacShaKeyFor("mySuperSecureAndLongSecretKey123456789012".getBytes());
+//    private final long expirationMs = 3600000;
+//
+//    public String generateToken(Long userId) {
+//        return Jwts.builder()
+//                .setSubject(userId.toString())
+//                .signWith(secretKey)
+//                .compact();
+//    }
 }

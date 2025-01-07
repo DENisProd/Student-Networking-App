@@ -18,7 +18,7 @@ import java.security.Key;
 @Component
 public class JwtUserIdFilter extends AbstractGatewayFilterFactory<JwtUserIdFilter.Config> {
 
-    private final SecretKey secretKey = Keys.hmacShaKeyFor("mySuperSecureAndLongSecretKey123456789012".getBytes());
+//    private final SecretKey secretKey = Keys.hmacShaKeyFor("mySuperSecureAndLongSecretKey123456789012".getBytes());
 
     public JwtUserIdFilter() {
         super(Config.class);
@@ -39,17 +39,17 @@ public class JwtUserIdFilter extends AbstractGatewayFilterFactory<JwtUserIdFilte
                 String accessToken = accessTokenCookie.getValue();
 
                 try {
-                    Claims claims = Jwts.parser()
-                            .verifyWith(secretKey)
-                            .build()
-                            .parseSignedClaims(accessToken)
-                            .getPayload();
+//                    Claims claims = Jwts.parser()
+//                            .verifyWith(secretKey)
+//                            .build()
+//                            .parseSignedClaims(accessToken)
+//                            .getPayload();
 
-                    String userId = claims.getSubject();
+//                    String userId = claims.getSubject();
 
 
                     ServerHttpRequest modifiedRequest = request.mutate()
-                            .header("X-User-Id", userId)
+//                            .header("X-User-Id", userId)
                             .header("X-Access-Token", accessToken)
                             .build();
 

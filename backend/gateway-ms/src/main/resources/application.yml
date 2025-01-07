@@ -4,16 +4,17 @@ server:
 spring:
   cloud:
     gateway:
-      default-filters:
-        - name: AddRequestHeader
-          args:
-            name: X-Real-IP
-            value: your-client-id-value
+#      default-filters:
+#        - name: AddRequestHeader
+#          args:
+#            name: X-Real-IP
+#            value: your-client-id-value
       routes:
         - id: category
           uri: http://localhost:8083
           predicates:
             - Path=/api/v2/categories/**
+            - Method=GET,POST
         - id: post
           uri: http://localhost:8093
           predicates:
@@ -22,8 +23,8 @@ spring:
           uri: http://localhost:8081
           predicates:
             - Path=/api/v2/profiles/**
-          filters:
-            - JwtUserIdFilter
+#          filters:
+#            - JwtUserIdFilter
 #        - id: auth
 #          uri: http://localhost:8081
 #          predicates:
