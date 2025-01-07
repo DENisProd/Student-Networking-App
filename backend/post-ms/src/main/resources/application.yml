@@ -34,5 +34,5 @@ server:
   port: 8093
 
 api:
-  media_server: ${MEDIA_URL}/api/v2/
-  category_server: ${CATEGORIES_URL}/api/v2/categories
+  media_server: ${MEDIA_URL}
+  category_server: ${CATEGORIES_URL}
