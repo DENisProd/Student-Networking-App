@@ -11,12 +11,12 @@ spring:
 #            value: your-client-id-value
       routes:
         - id: category
-          uri: http://localhost:8083
+          uri: ${CATEGORIES_URL}
           predicates:
             - Path=/api/v2/categories/**
             - Method=GET,POST
         - id: post
-          uri: http://localhost:8093
+          uri: ${POSTS_URL}
           predicates:
             - Path=/api/v2/post/**
         - id: finder
