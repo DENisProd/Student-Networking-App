@@ -9,16 +9,26 @@ spring:
 #          args:
 #            name: X-Real-IP
 #            value: your-client-id-value
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allowedOrigins: ${CLIENT_URL}
+#            allowedMethods:
+#              - GET,POST,PUT,OPTIONS,OPTION
       routes:
         - id: category
           uri: ${CATEGORIES_URL}
           predicates:
             - Path=/api/v2/categories/**
             - Method=GET,POST
+          filters:
+            - JwtUserIdFilter
         - id: post
           uri: ${POSTS_URL}
           predicates:
             - Path=/api/v2/post/**
+          filters:
+            - JwtUserIdFilter
         - id: finder
           uri: http://localhost:8081
           predicates:
@@ -37,4 +47,10 @@ spring:
 
 app:
   cors: ${CLIENT_URL}
+  auth_server: ${AUTH_SERVER_URL}
 #  cors: http://localhost:5173
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.cloud.config: DEBUG

@@ -1,4 +1,29 @@
 services:
+  postgresql:
+    image: postgres:14-alpine
+    container_name: postgresql
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    networks:
+      - spring
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - spring
   minio:
     image: 'minio/minio:latest'
     container_name: minio
@@ -11,6 +36,8 @@ services:
     volumes:
       - 'minio:/data/minio'
     command: minio server /data/minio --console-address ":9090"
+    networks:
+      - spring
   rabbitmq:
     image: rabbitmq:4.0.2-management-alpine
     container_name: rabbitmq_media
@@ -20,6 +47,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - spring
   mongodb_container:
     container_name: mongodb
     image: mongo:latest
@@ -31,6 +60,8 @@ services:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
+    networks:
+      - spring
   mongo-express:
     image: mongo-express
     container_name: mongo-express
@@ -44,6 +75,8 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongodb
       ME_CONFIG_BASICAUTH_USERNAME: mongo
       ME_CONFIG_BASICAUTH_PASSWORD: password
+    networks:
+      - spring
   post-ms:
     container_name: post-ms
     build:
@@ -52,20 +85,34 @@ services:
       - "8093:8093"
     depends_on:
       - mongodb_container
+    networks:
+      - spring
   gateway-ms:
     container_name: gateway-ms
     build:
       context: ./gateway-ms/
     ports:
       - "8090:8090"
+    networks:
+      - spring
   category-ms:
     container_name: category-ms
     build:
       context: ./category-ms/
     ports:
       - "8083:8083"
+    networks:
+      - spring
+    depends_on:
+      - postgresql
 
 volumes:
+  postgresql:
+  pgadmin-data:
   minio:
     driver: local
   mongodb_data_container:
+
+networks:
+  spring:
+    driver: bridge

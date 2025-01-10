@@ -1,4 +1,4 @@
-package ru.denis.category.configuration;
+package ru.denis.media.configuration;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -11,9 +11,7 @@ public class EnvInitializer {
                 .filename(envFile)
                 .load();
 
-        dotenv.entries().forEach(entry -> {
-            System.setProperty(entry.getKey(), entry.getValue());
-        });
+        dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
         System.out.println("Переменные окружения успешно загружены из " + envFile);
     }
 }

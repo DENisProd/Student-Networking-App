@@ -19,7 +19,10 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public PostResponseDTO createPost (@RequestBody PostCreateDTO postCreateDTO) {
+    public PostResponseDTO createPost (
+            @RequestHeader(value = "X-User-ID") String userId,
+            @RequestBody PostCreateDTO postCreateDTO
+    ) {
         return postService.createPost(postCreateDTO);
     }
 
@@ -56,6 +59,7 @@ public class PostController {
             @RequestHeader(value = "X-Client-ID", required = false) String clientId,
             @RequestHeader(value = "X-Real-IP", required = false) String ip
     ) {
+//        @RequestHeader(value = "X-User-ID", required = false) String userId,
         return ResponseEntity.ok(postService.findById(id, ip, clientId));
     }
 }

@@ -1,14 +1,14 @@
-package ru.denis;
+package ru.denis.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class GatewayConfig {
+public class WebClientConfig {
 
     @Bean
-    public JwtUserIdFilter jwtUserIdFilter(WebClient.Builder webClientBuilder) {
-        return new JwtUserIdFilter(webClientBuilder);
+    public WebClient.Builder webClientBuilder() {
+        return WebClient.builder();
     }
 }

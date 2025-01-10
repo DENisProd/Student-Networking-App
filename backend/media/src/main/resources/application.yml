@@ -6,17 +6,17 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
   datasource:
-    url: jdbc:postgresql://localhost:5432/media
-    username: denis
-    password: password
+    url: jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_MEDIA_DB}
+    username: ${PG_USERNAME}
+    password: ${PG_PASSWORD}
 
     hikari:
       auto-commit: false
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: user
-    password: password
+    host: ${RABBIT_HOST}
+    port: ${RABBIT_PORT}
+    username: ${RABBIT_USERNAME}
+    password: ${RABBIT_PASSWORD}
 
 #    template:
 #      exchange: internal.exchange
@@ -31,12 +31,12 @@ spring:
     show-sql: false
 
 s3:
-  url: http://localhost:9000
-  accessKey: BIMpjKertvPwo4WRqQXT
-  secretKey: Lcj1bqV1ZjVMhLJvAtdNjETWHO7cBkzASRjkinrk
-  bucketName: media
+  url: ${S3_URL}
+  accessKey: ${S3_ACCESS_KEY}
+  secretKey: ${S3_SECRET_KEY}
+  bucketName: ${S3_BUCKET}
 
 server:
   port: 8082
 
-ffmpeg_path: C:\Users\Denis\AppData\Local\Programs\FFmpeg\bin\ffmpeg.exe
+ffmpeg_path: ${FFMPEG_PATH}

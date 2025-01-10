@@ -54,7 +54,10 @@ public class CategoryController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO category) {
+    public ResponseEntity<CategoryDTO> createCategory(
+            @RequestHeader(value = "X-User-ID") String userId,
+            @RequestBody CategoryDTO category
+    ) {
         CategoryDTO createdCategory = categoryService.save(category);
         return ResponseEntity.ok(createdCategory);
     }
@@ -69,14 +72,21 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDetails) {
+    public ResponseEntity<CategoryDTO> updateCategory(
+            @RequestHeader(value = "X-User-ID") String userId,
+            @PathVariable Long id,
+            @RequestBody CategoryDTO categoryDetails
+    ) {
         return categoryService.updateCategory(id, categoryDetails)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCategory(
+            @RequestHeader(value = "X-User-ID") String userId,
+            @PathVariable Long id
+    ) {
         try {
             categoryService.deleteById(id);
             return ResponseEntity.noContent().build();
