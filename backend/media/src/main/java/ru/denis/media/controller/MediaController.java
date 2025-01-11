@@ -30,7 +30,7 @@ public class MediaController {
             @RequestParam("entityId") String entityId
     ) throws IOException {
         try (InputStream inputStream = file.getInputStream()) {
-            fileProcessingService.addFileForProcessing(inputStream, mediaType, orientation, callbackTopic, Long.valueOf(entityId));
+            fileProcessingService.addFileForProcessing(inputStream, mediaType, orientation, callbackTopic, entityId);
             return ResponseEntity.accepted().build();
         } catch (IOException e) {
             throw new RuntimeException("Error uploading file", e);

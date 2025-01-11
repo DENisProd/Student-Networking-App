@@ -26,6 +26,8 @@ public class Post {
     private Set<String> uniqueViews = new HashSet<>();
     private Set<Long> categories = new HashSet<>();
 
+    private Long author;
+
     private Boolean isModerated = true;
     private Boolean isDeleted = false;
     private Float rating = 0f;

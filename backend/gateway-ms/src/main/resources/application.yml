@@ -2,6 +2,11 @@ server:
   port: 8090
 
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
   cloud:
     gateway:
 #      default-filters:
@@ -20,7 +25,7 @@ spring:
           uri: ${CATEGORIES_URL}
           predicates:
             - Path=/api/v2/categories/**
-            - Method=GET,POST
+            - Method=GET,POST,DELETE
           filters:
             - JwtUserIdFilter
         - id: post

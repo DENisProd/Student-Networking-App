@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 public class MediaResponse {
     private List<MediaDTO> mediaList;
-    private Long entityId;
+    private String entityId;
 }

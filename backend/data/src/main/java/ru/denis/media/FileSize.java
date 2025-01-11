@@ -4,5 +4,6 @@ public enum FileSize {
     BLUR,
     LARGE,
     SMALL,
-    PREVIEW
+    PREVIEW,
+    LOADING
 }

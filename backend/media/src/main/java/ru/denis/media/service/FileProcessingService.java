@@ -41,7 +41,7 @@ public class FileProcessingService {
         }).start();
     }
 
-    public void addFileForProcessing(InputStream inputStream, MediaTypes mediaType, FileOrientation orientation, String callbackTopic, Long entityId) throws IOException {
+    public void addFileForProcessing(InputStream inputStream, MediaTypes mediaType, FileOrientation orientation, String callbackTopic, String entityId) throws IOException {
         byte[] data = toByteArray(inputStream);
         ByteArrayInputStream asyncInputStream = new ByteArrayInputStream(data);
 

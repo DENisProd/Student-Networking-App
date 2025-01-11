@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import ru.darksecrets.post.dto.PostCreateDTO;
 import ru.darksecrets.post.dto.PostResponseDTO;
 import ru.darksecrets.post.dto.ReactionDTO;
@@ -20,6 +21,8 @@ import ru.darksecrets.post.model.Reaction;
 import ru.darksecrets.post.repository.PostRepository;
 import ru.denis.category.CategoryDTO;
 import ru.denis.category.CategoryType;
+import ru.denis.media.FileSize;
+import ru.denis.media.MediaDTO;
 
 import java.util.stream.Collectors;
 
@@ -30,13 +33,14 @@ import java.util.*;
 public class PostService {
     private final PostRepository postRepository;
     private final RestTemplate restTemplate;
+    private final MediaService mediaService;
 
     private final MongoTemplate mongoTemplate;
 
     @Value("${api.category_server}")
     private String categoryServerUrl;
 
-    public PostResponseDTO createPost (PostCreateDTO postCreateDTO) {
+    public PostResponseDTO createPost (PostCreateDTO postCreateDTO, Long userId, MultipartFile cover) {
         List<CategoryDTO> categories = fetchCategoriesByIds(postCreateDTO.categories());
 
         // TODO: check organization
@@ -45,6 +49,11 @@ public class PostService {
         newPost.setContent(postCreateDTO.content());
         newPost.setTitle(postCreateDTO.title());
         newPost.setOrganizationId(postCreateDTO.organizationId());
+        newPost.setAuthor(userId);
+
+        List<MediaDTO> tempMedia = new ArrayList<>();
+        tempMedia.add(new MediaDTO("", FileSize.LOADING));
+        newPost.setCover(tempMedia);
 
         List<Long> filteredCategories = categories.stream().filter(category -> category.type() == CategoryType.CATEGORY).map(category -> category.id()).toList();
 
@@ -52,6 +61,7 @@ public class PostService {
 
         Post savedPost = postRepository.save(newPost);
 
+        mediaService.uploadMedia(cover, savedPost.getId());
         // TODO: send to notification
 
         return toPostDTO(savedPost, categories);

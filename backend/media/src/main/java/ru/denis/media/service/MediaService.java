@@ -39,7 +39,7 @@ public class MediaService {
     private final MinioService utils;
 
     @Async
-    public void saveMedia(InputStream inputStream, MediaTypes mediaType, FileOrientation orientation, String callbackTopic, Long entityId) throws IOException {
+    public void saveMedia(InputStream inputStream, MediaTypes mediaType, FileOrientation orientation, String callbackTopic, String entityId) throws IOException {
         int[] verySmallResolution = getResolution(orientation, 160, 90);
         int[] smallResolution = getResolution(orientation, 320, 180);
         int[] largeResolution = getResolution(orientation, 1280, 720);

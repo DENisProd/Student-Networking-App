@@ -2,8 +2,10 @@ package ru.darksecrets.post.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.darksecrets.post.dto.PostCreateDTO;
 import ru.darksecrets.post.dto.PostResponseDTO;
 import ru.darksecrets.post.dto.ReactionDTO;
@@ -18,12 +20,14 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping
+    @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+//    @PostMapping
     public PostResponseDTO createPost (
-            @RequestHeader(value = "X-User-ID") String userId,
-            @RequestBody PostCreateDTO postCreateDTO
+            @RequestHeader(value = "X-User-ID", required = false) String userId,
+            @RequestPart(name = "post") PostCreateDTO postCreateDTO,
+            @RequestPart(name = "cover", required = false) MultipartFile cover
     ) {
-        return postService.createPost(postCreateDTO);
+        return postService.createPost(postCreateDTO, Long.parseLong(userId), cover);
     }
 
     @GetMapping("search")

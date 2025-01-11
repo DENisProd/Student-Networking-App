@@ -17,7 +17,7 @@ spring:
     port: 5672
     username: user
     password: password
-    queue: post.media
+    queue: finder.media
 
     listener:
       simple:
