@@ -2,7 +2,7 @@ FROM openjdk:17
 
 VOLUME /tmp
 
-COPY target/media-ms-1.0-SNAPSHOT.jar /app/media-ms-1.0-SNAPSHOT.jar
+COPY target/media-1.0-SNAPSHOT.jar /app/media-1.0-SNAPSHOT.jar
 
 COPY .env.prod /app/.env
 
@@ -11,4 +11,4 @@ ENV FFMPEG_PATH=/usr/bin/ffmpeg
 
 WORKDIR /app
 
-ENTRYPOINT ["java", "-jar", "media-ms-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "media-1.0-SNAPSHOT.jar"]
