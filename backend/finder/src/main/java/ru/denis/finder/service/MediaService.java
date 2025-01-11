@@ -58,7 +58,7 @@ public class MediaService {
 
     public void addMedia(MediaResponse mediaResponse) {
         if (mediaResponse.getEntityId() == null) return;
-        UserProfile userProfile = userProfileRepository.findById(mediaResponse.getEntityId()).orElse(null);
+        UserProfile userProfile = userProfileRepository.findById(Long.parseLong(mediaResponse.getEntityId())).orElse(null);
         if (userProfile == null) return;
 
         if (mediaResponse.getMediaList() == null || mediaResponse.getMediaList().isEmpty()) return;
