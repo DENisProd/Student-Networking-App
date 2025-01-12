@@ -19,6 +19,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MissingRequestHeaderException.class)
     public ResponseEntity<String> handleMissingUserIdException(MissingRequestHeaderException ex) {
+        System.out.println(ex.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }

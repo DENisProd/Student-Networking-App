@@ -11,17 +11,17 @@ services:
       - postgresql:/var/lib/postgresql/data
     ports:
       - '5432:5432'
-  pgadmin:
-    container_name: pgadmin4
-    image: dpage/pgadmin4:latest
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    ports:
-      - "5050:80"
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
+#  pgadmin:
+#    container_name: pgadmin4
+#    image: dpage/pgadmin4:latest
+#    restart: always
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+#    ports:
+#      - "5050:80"
+#    volumes:
+#      - pgadmin-data:/var/lib/pgadmin
   minio:
     image: 'minio/minio:latest'
     container_name: minio
@@ -54,19 +54,19 @@ services:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
-  mongo-express:
-    image: mongo-express
-    container_name: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_URL: mongodb://root:rootpassword@mongodb:27017
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_DB_USERNAME}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_DB_PASSWORD}
-      ME_CONFIG_MONGODB_SERVER: mongodb
-      ME_CONFIG_BASICAUTH_USERNAME: mongo
-      ME_CONFIG_BASICAUTH_PASSWORD: password
+#  mongo-express:
+#    image: mongo-express
+#    container_name: mongo-express
+#    restart: always
+#    ports:
+#      - 8081:8081
+#    environment:
+#      ME_CONFIG_MONGODB_URL: mongodb://root:rootpassword@mongodb:27017
+#      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_DB_USERNAME}
+#      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_DB_PASSWORD}
+#      ME_CONFIG_MONGODB_SERVER: mongodb
+#      ME_CONFIG_BASICAUTH_USERNAME: mongo
+#      ME_CONFIG_BASICAUTH_PASSWORD: password
 
 volumes:
   postgresql:
