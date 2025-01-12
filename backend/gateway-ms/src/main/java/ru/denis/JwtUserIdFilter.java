@@ -36,7 +36,7 @@ public class JwtUserIdFilter extends AbstractGatewayFilterFactory<JwtUserIdFilte
 
             if (accessToken != null && accessToken.startsWith("Bearer ")) {
                 accessToken = accessToken.substring(7); // Убираем "Bearer "
-
+                System.out.println("sending request...");
                 return webClient.get()
                         .uri(authServerUrl+"api/v1/user/profile")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
@@ -49,6 +49,7 @@ public class JwtUserIdFilter extends AbstractGatewayFilterFactory<JwtUserIdFilte
                                         System.out.println("Unauthorized access. Ignoring error.");
                                         return Mono.empty(); // Просто игнорируем ошибку и продолжаем
                                     }
+                                    System.out.println("Other error");
                                     // Если другая ошибка, выбрасываем исключение
                                     return Mono.empty();
                                 })

@@ -95,6 +95,8 @@ services:
       - "8090:8090"
     networks:
       - spring
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   category-ms:
     container_name: category-ms
     build:
