@@ -61,7 +61,7 @@ public class PostService {
 
         Post savedPost = postRepository.save(newPost);
 
-        mediaService.uploadMedia(cover, savedPost.getId());
+        if (!cover.isEmpty()) mediaService.uploadMedia(cover, savedPost.getId());
         // TODO: send to notification
 
         return toPostDTO(savedPost, categories);

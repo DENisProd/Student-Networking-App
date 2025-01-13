@@ -33,12 +33,17 @@ public class JwtUserIdFilter extends AbstractGatewayFilterFactory<JwtUserIdFilte
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             String accessToken = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+            String clientId = request.getHeaders().getFirst("x-client-id");
+
+            System.out.println(accessToken);
+            System.out.println(clientId);
+            System.out.println(authServerUrl+"api/v1/user/profile?cid="+clientId);
 
             if (accessToken != null && accessToken.startsWith("Bearer ")) {
                 accessToken = accessToken.substring(7); // Убираем "Bearer "
                 System.out.println("sending request...");
                 return webClient.get()
-                        .uri(authServerUrl+"api/v1/user/profile")
+                        .uri(authServerUrl+"api/v1/user/profile?cid="+clientId)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
                         .retrieve()
                         .onStatus(
