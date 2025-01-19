@@ -118,6 +118,16 @@ services:
     depends_on:
       - postgresql
       - minio
+  finder:
+    container_name: finder
+    build:
+      context: ./finder/
+    ports:
+      - "8071:8071"
+    networks:
+      - spring
+    depends_on:
+      - postgresql
 
 volumes:
   postgresql:
