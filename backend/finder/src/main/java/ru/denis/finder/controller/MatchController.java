@@ -12,7 +12,7 @@ public class MatchController {
     private final MatchService matchService;
 
     @GetMapping("")
-    public ResponseEntity<?> fetchMatchesByProfileId (@RequestHeader(value = "X-User-Id") Long userId) {
+    public ResponseEntity<?> fetchMatchesByProfileId (@RequestHeader(value = "X-User-ID") Long userId) {
         try {
             return ResponseEntity.ok(matchService.getMatchesByUserId(userId));
         } catch (Exception e) {

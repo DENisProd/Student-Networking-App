@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import WelcomePage from "./pages/WelcomePage";
 import { routes } from "./routes/routes";
@@ -12,8 +12,17 @@ import CategoryManagementPage from "./pages/admin/categories/CategoryManagementP
 import MatchPage from "./pages/match/MatchPage";
 import MockLoginPage from "./pages/login/MockLoginPage";
 import UserFormPage from "./pages/form/UserFormPage";
+import { useUserStore } from "./services/store/user.store";
 
 function App() {
+    const { fetchUser, user } = useUserStore();
+    useEffect(() => {
+        fetchUser();
+    }, [])
+
+    useEffect(() => {
+        console.log(user)
+    }, [user])
 
     return (
         <MainLayout>

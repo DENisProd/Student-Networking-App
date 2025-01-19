@@ -29,6 +29,9 @@ public class MediaService {
     @Value("${api.media_server}")
     private String mediaServerUrl;
 
+    @Value("${spring.rabbitmq.queue}")
+    private String queue;
+
     private final UserProfileRepository userProfileRepository;
     private final MediaRepository mediaRepository;
     private final RestTemplate restTemplate;
@@ -40,7 +43,7 @@ public class MediaService {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", file.getResource());
         body.add("entityId", mediaId);
-        body.add("callbackTopic", "post.media");
+        body.add("callbackTopic", queue);
         body.add("orientation", "PORTRAIT");
         body.add("type", fileType);
 

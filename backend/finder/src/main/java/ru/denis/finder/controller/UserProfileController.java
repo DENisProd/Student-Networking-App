@@ -25,7 +25,7 @@ public class UserProfileController {
 
     @PostMapping("/")
     public ResponseEntity<?> createUserProfile(
-            @RequestHeader(value = "X-User-Id") Long userId,
+            @RequestHeader(value = "X-User-ID") Long userId,
             @RequestParam("name") String name) {
         try {
             return ResponseEntity.ok(userProfileService.createUserProfile(userId, name));
@@ -36,10 +36,11 @@ public class UserProfileController {
 
     @GetMapping("/")
     public ResponseEntity<?> getUserProfile(
-            @RequestHeader(value = "X-User-Id") Long userId
+            @RequestHeader(value = "X-User-ID") Long userId,
+            @RequestParam(value = "name", required = false) String name
     ) {
         try {
-            return ResponseEntity.ok(userProfileService.getByUserId(userId));
+            return ResponseEntity.ok(userProfileService.getByUserId(userId, name));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -47,7 +48,7 @@ public class UserProfileController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserProfileById(
-            @RequestHeader(value = "X-User-Id") Long userId,
+            @RequestHeader(value = "X-User-ID") Long userId,
             @PathVariable("id") Long profileId
     ) {
         try {
@@ -80,7 +81,7 @@ public class UserProfileController {
 
     @GetMapping("/random")
     public Page<UserProfileResponseDTO> getRandomUserProfiles(
-            @RequestHeader(value = "X-User-Id") Long userId,
+            @RequestHeader(value = "X-User-ID") Long userId,
             @RequestParam(name = "interests", required = false) List<String> interests,
             @RequestParam(name = "filtered", defaultValue = "false") boolean filtered,
             Pageable pageable

@@ -1,9 +1,25 @@
-import server from "@/middleware/wrappers/server";
+import server, { mainServer } from "@/middleware/wrappers/server";
 import { UserProfile, UserProfileUpdate } from "./models/UserProfile";
 import { PageableResponse } from "./models/PagebleResponse";
+import { User } from "./models/User";
+import IResponse from "./models/Response";
 
-async function fetchUserProfile(userId: number | null): Promise<UserProfile> {
-    const response = await server.get<UserProfile>("profiles/" + (userId || ""));
+async function fetchUser(): Promise<User> {
+    const response = await mainServer.get<IResponse<User>>("user/profile");
+    return response.data.data;
+}
+
+async function fetchUserProfile(userId: number | null, name: string | null): Promise<UserProfile> {
+    let params: string = "";
+    if (userId) {
+        params += `userId=${userId}`;
+    }
+    if (name) {
+        if (params.length > 0) params += "&";
+        params += `name=${name}`;
+    }
+    if (params.length > 2) params = "?" + params;
+    const response = await server.get<UserProfile>("profiles/"+params);
     return response.data;
 }
 
@@ -45,6 +61,7 @@ async function addMedia(file: File, profileId: number) {
 }
 
 export default {
+    fetchUser,
     fetchUserProfile,
     fetchRandomUserProfiles,
     updateUserProfile,

@@ -35,27 +35,20 @@ public class JwtUserIdFilter extends AbstractGatewayFilterFactory<JwtUserIdFilte
             String accessToken = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
             String clientId = request.getHeaders().getFirst("x-client-id");
 
-            System.out.println(accessToken);
-            System.out.println(clientId);
-            System.out.println(authServerUrl+"api/v1/user/profile?cid="+clientId);
-
             if (accessToken != null && accessToken.startsWith("Bearer ")) {
-                accessToken = accessToken.substring(7); // Убираем "Bearer "
-                System.out.println("sending request...");
+                accessToken = accessToken.substring(7);
+                String finalAccessToken = accessToken;
                 return webClient.get()
                         .uri(authServerUrl+"api/v1/user/profile?cid="+clientId)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
                         .retrieve()
                         .onStatus(
-                                HttpStatusCode::is4xxClientError,  // Проверка на 4xx статус
+                                HttpStatusCode::is4xxClientError,
                                 response -> {
                                     if (response.statusCode() == HttpStatus.UNAUTHORIZED) {
-                                        // Игнорируем ошибку 401 и продолжаем выполнение
-                                        System.out.println("Unauthorized access. Ignoring error.");
-                                        return Mono.empty(); // Просто игнорируем ошибку и продолжаем
+                                        return Mono.empty();
                                     }
-                                    System.out.println("Other error");
-                                    // Если другая ошибка, выбрасываем исключение
+
                                     return Mono.empty();
                                 })
 

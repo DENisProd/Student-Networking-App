@@ -9,7 +9,12 @@ const getCookie = (name: string) => {
     if (parts.length === 2) return parts.pop()?.split(";").shift();
 };
 
+const removeCookie = (name: string) => {
+    setCookie(name, '', -1);
+}
+
 export default {
     setCookie,
     getCookie,
+    removeCookie,
 };

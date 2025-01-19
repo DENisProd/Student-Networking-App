@@ -1,4 +1,4 @@
-package ru.darksecrets.post.exception;
+package ru.denis.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

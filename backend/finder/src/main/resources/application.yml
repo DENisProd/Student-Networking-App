@@ -1,6 +1,6 @@
 spring:
-  config:
-    import: optional:file:.env[.properties]
+#  config:
+#    import: optional:file:.env[.properties]
   servlet:
     multipart:
       max-file-size: 50MB
@@ -13,11 +13,11 @@ spring:
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   rabbitmq:
-    host: localhost
+    host: ${RABBIT_HOST}
     port: 5672
-    username: user
-    password: password
-    queue: finder.media
+    username: ${RABBIT_USERNAME}
+    password: ${RABBIT_PASSWORD}
+    queue: ${RABBIT_QUEUE}
 
     listener:
       simple:
@@ -31,8 +31,8 @@ spring:
       ddl-auto: update
 
 server:
-  port: 8081
+  port: 8071
 
 api:
-  media_server: http://localhost:8082/api/v1/
-  category_server: http://localhost:8083/api/v1/categories
+  media_server: ${MEDIA_URL}
+  category_server: ${CATEGORIES_URL}

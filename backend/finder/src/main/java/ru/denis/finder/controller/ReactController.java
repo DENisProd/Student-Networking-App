@@ -23,7 +23,7 @@ public class ReactController {
     }
 
     @GetMapping()
-    public List<ReactResponseDTO> getReacts(@RequestHeader(value = "X-User-Id") Long userId) {
+    public List<ReactResponseDTO> getReacts(@RequestHeader(value = "X-User-ID") Long userId) {
         return reactService.getReactsByUserId(userId);
     }
 

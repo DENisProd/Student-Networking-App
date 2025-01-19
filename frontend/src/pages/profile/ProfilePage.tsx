@@ -20,9 +20,6 @@ const ProfilePage = () => {
             {user?.id ? (
                 <>
                     <ProfileHeader />
-                    <Link to={routes.Login}>
-                        <Button>Войти в аккаунт (mock)</Button>
-                    </Link>
                 </>
             ) : (
                 <Layout>

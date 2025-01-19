@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.darksecrets.post.dto.PostCreateDTO;
 import ru.darksecrets.post.dto.PostResponseDTO;
 import ru.darksecrets.post.dto.ReactionDTO;
-import ru.darksecrets.post.exception.ResourceNotFoundException;
+import ru.denis.exception.ResourceNotFoundException;
 import ru.darksecrets.post.model.Post;
 import ru.darksecrets.post.model.Reaction;
 import ru.darksecrets.post.repository.PostRepository;

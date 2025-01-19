@@ -51,7 +51,7 @@ interface UserStore {
     user: User;
     userProfile: UserProfile;
 
-    fetchUser: (clientId: number) => void;
+    fetchUser: () => void;
     updateUser: (newProfile: Partial<UserProfile>) => void;
     fetchUserProfile: () => void;
     addInterest: (interest: Category) => void;
@@ -60,24 +60,21 @@ interface UserStore {
 }
 
 export const useUserStore = create<UserStore>((set, get) => ({
-    user: {
-        id: 2,
-        clientId: "efefefefefedggddg",
-        name: "Денис",
-        saveStatus: 1,
-        avatar: "https://sun1-19.userapi.com/s/v1/ig2/7C9nX4rUQXfkmlhhpyvHv2KbUiosZkcgMn1JNXNMSCKBFRDorvwOLkEy5u8tpmmNM8lO2ERj_3a_CWyGR1gGKfAs.jpg?quality=95&crop=436,241,1071,1071&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&cs=200x200",
-        role: "default",
-    } as User,
+    user: {} as User,
     userProfile: {} as UserProfile,
 
-    fetchUser: (clientId: number) => {
-        userService.loginUser((users[clientId] || users[0]).id)
-        userService.fetchUserProfile(null).then(res => {
-            set({ userProfile: res });
+    fetchUser: () => {
+        // userService.loginUser((users[clientId] || users[0]).id)
+        userService.fetchUser().then(res => {
+            set({ user: res });
+            userService.fetchUserProfile(null, res.name).then(res => {
+                set({ userProfile: res });
+            })
         })
-        set({
-            user: users[clientId] || users[0]
-        })
+        
+        // set({
+        //     user: users[clientId] || users[0]
+        // })
     },
     updateUser: (newProfile: Partial<UserProfile>) => {
         const { userProfile } = get();

@@ -39,8 +39,9 @@ spring:
           uri: ${FINDER_URL}
           predicates:
             - Path=/api/v2/profiles/**
-#          filters:
-#            - JwtUserIdFilter
+            - Method=GET,POST,DELETE,PUT
+          filters:
+            - JwtUserIdFilter
 #        - id: auth
 #          uri: http://localhost:8081
 #          predicates:
@@ -50,6 +51,14 @@ spring:
           predicates:
             - Path=/api/v2/media/**
             - Method=GET
+#        - id: user
+#          uri: ${AUTH_SERVER_URL}
+#          predicates:
+#            - Path=/api/v2/user/**
+#            - Method=GET
+#          filters:
+#            - RewritePath=/api/v2/user/(?<segment>.*), /api/v1/user/${segment}
+#            - AddRequestHeader=Authorization, {Authorization}
 
 app:
   cors: ${CLIENT_URL}

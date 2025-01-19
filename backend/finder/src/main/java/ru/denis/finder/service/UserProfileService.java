@@ -61,13 +61,13 @@ public class UserProfileService {
     }
 
     @Transactional
-    public UserProfileResponseDTO getByUserId(Long userId) {
+    public UserProfileResponseDTO getByUserId(Long userId, String name) {
         UserProfile userProfile = userProfileRepository.findByUserId(userId)
                 .orElseGet(() -> {
                     if (!doesUserExist(userId)) {
                         throw new NoSuchElementException("User does not exist");
                     }
-                    return createUserProfile(userId, defaultUserName);
+                    return createUserProfile(userId, name != null ? name : defaultUserName);
                 });
 
         return getUserProfileWithCategories(userProfile);
