@@ -1,0 +1,20 @@
+.chat {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--global-gap);
+    align-items: center;
+    gap: var(--global-gap);
+    text-decoration: none;
+    border-radius: var(--global-gap);
+    cursor: pointer;
+
+    &:hover {
+        background: var(--background-tile);
+    }
+
+    & .name {
+        font-weight: 600;
+        font-size: 1.15rem;
+        color: var(--text);
+    }
+}

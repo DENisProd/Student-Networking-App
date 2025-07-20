@@ -27,12 +27,19 @@ public class CategoryController {
             try {
                 _type = CategoryType.valueOf(type.toUpperCase());
             } catch (IllegalArgumentException e) {
-
+                // Логируем ошибку и возвращаем 400 Bad Request
+                System.err.println("Invalid category type: " + type);
+                return ResponseEntity.badRequest().body("Invalid category type: " + type);
             }
         }
 
-        Page<CategoryDTO> categories = categoryService.findAll(_type, pageable);
-        return ResponseEntity.ok(categories);
+        try {
+            Page<CategoryDTO> categories = categoryService.findAll(_type, pageable);
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            System.err.println("Error fetching categories: " + e.getMessage());
+            return ResponseEntity.internalServerError().body("Error fetching categories");
+        }
     }
 
     @GetMapping("/search")

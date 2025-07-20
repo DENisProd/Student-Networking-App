@@ -1,22 +1,18 @@
-import MatchList from "@/components/blocks/MatchList/MatchList";
-import ReactsList from "@/components/blocks/ReactsList/ReactsList";
-import HeaderContainer from "@/components/shared/HeaderContainer/HeaderContainer";
-import BackButton from "@/components/ui/BackButton/BackButton";
-import Layout from "@/components/ui/Layout/Layout";
-import Typography from "@/components/ui/Typography/Typography";
+import { MatchList } from "@/components/blocks/MatchList/MatchList";
+import { NetworkingButton } from "@/components/widgets/NetworkingButton/NetworkingButton";
+import { MyContacts } from "@/components/widgets/MyContacts/MyContacts";
+import { MyProjects } from "@/components/widgets/MyProjects/MyProjects";
+import styles from "./MatchPage.module.scss";
 
-const MatchPage = () => {
-    return (
-        <Layout paddingBottom noPadding>
-            <HeaderContainer left={<BackButton />}>
-                <Typography text={"Взаимности"} variant="h2" />
-            </HeaderContainer>
-            <Layout>
-                <MatchList />
-                <ReactsList />
-            </Layout>
-        </Layout>
-    );
-};
-
-export default MatchPage;
+export default function MatchPage() {
+  return (
+    <div className={styles.page}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 16 }}>
+        <NetworkingButton />
+      </div>
+      {/* <MatchList title="Симпатии" /> */}
+      <MyContacts />
+      <MyProjects />
+    </div>
+  );
+}

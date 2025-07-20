@@ -1,0 +1,34 @@
+.networkingBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  background: var(--background-tile, #fff);
+  border: 1px solid var(--border-color, #eee);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #e53935;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.text {
+  margin-left: 4px;
+} 

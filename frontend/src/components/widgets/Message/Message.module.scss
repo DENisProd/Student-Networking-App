@@ -1,0 +1,20 @@
+.messageContainer {
+    width: 100%;
+    min-height: 55px;
+}
+
+.message {
+    max-width: 80%;
+    background: var(--background-tile);
+    border-radius: var(--global-gap);
+    display: flex;
+    gap: var(--global-gap);
+    padding: var(--global-gap);
+    margin-bottom: var(--global-gap);
+
+    &.ownMessage {
+        float: right;
+        background: var(--primary);
+        color: var(--primary-white);
+    }
+}

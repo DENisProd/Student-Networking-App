@@ -184,7 +184,7 @@ body, :root {
 
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: var(--text-color);
   background: var(--background-color);
   min-height: 100vh;
 }

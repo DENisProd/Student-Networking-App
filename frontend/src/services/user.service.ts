@@ -25,7 +25,14 @@ async function fetchUserProfile(userId: number | null, name: string | null): Pro
 
 async function fetchRandomUserProfiles(page: number, size: number, profileId: number): Promise<UserProfile[]> {
     const response = await server.get<PageableResponse<UserProfile[]>>(`profiles/random?size=${size}&page=${page}&profile=${profileId}`);
-    return response.data.content;
+    
+    // Проверяем, есть ли данные в ответе
+    if (response.data && response.data.content && response.data.content.length > 0) {
+        return response.data.content;
+    }
+    
+    // Если данных нет, возвращаем пустой массив
+    return [];
 }
 
 async function updateUserProfile(userProfile: UserProfileUpdate) {

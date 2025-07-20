@@ -10,7 +10,7 @@ import { useReactStore } from "@/services/store/reacts.store";
 import { useUserStore } from "@/services/store/user.store";
 
 const DiscoverPage = () => {
-    const { profiles, fetchRandomProfiles } = useDiscoveryStore();
+    const { profiles, fetchRandomProfiles, resetProfiles, hasMore, isLoading } = useDiscoveryStore();
     const { sendLike } = useReactStore();
     const { user, fetchUserProfile, userProfile } = useUserStore();
 
@@ -21,36 +21,67 @@ const DiscoverPage = () => {
     }, [])
 
     useEffect(() => {
-        if (Object.keys(userProfile).length > 0) {
+        if (Object.keys(userProfile).length > 0 && userProfile?.id) {
             console.log("User profile", userProfile);
-            fetchRandomProfiles(userProfile?.id)
-        } else {
+            // Сбрасываем профили при смене пользователя
+            resetProfiles();
+            fetchRandomProfiles(userProfile.id);
+        } else if (Object.keys(userProfile).length === 0) {
             fetchUserProfile();
         }
     }, [userProfile]);
 
     useEffect(() => {
         console.log("profiles", profiles);
-    }, [profiles]);
+        console.log("hasMore", hasMore);
+        console.log("isLoading", isLoading);
+    }, [profiles, hasMore, isLoading]);
 
     const sendLikeToTarget = (isLike: boolean) => {
-        sendLike({
-            id: 0,
-            targetProfileId: profiles[currentProfile].id,
-            userId: user?.id,
-            isLike,
-        }).then(res => {
-            setCurrentProfile(currentProfile+1);
-        })
+        if (profiles[currentProfile]) {
+            sendLike({
+                id: 0,
+                targetProfileId: profiles[currentProfile].id,
+                userId: user?.id,
+                isLike,
+            }).then(res => {
+                setCurrentProfile(currentProfile + 1);
+                
+                // Если достигли конца списка и есть еще данные, загружаем следующую страницу
+                if (currentProfile + 1 >= profiles.length && hasMore && !isLoading) {
+                    fetchRandomProfiles(userProfile?.id);
+                }
+            })
+        }
     }
 
     if (profiles.length === 0) return (
       <div>Загрузка данных.</div>
     )
 
+    if (currentProfile >= profiles.length && !hasMore && !isLoading) {
+        return (
+            <PageLayout noPadding>
+                <Layout center className={styles.container}>
+                    <div>Больше профилей не найдено</div>
+                </Layout>
+            </PageLayout>
+        );
+    }
+
     return (
         <PageLayout noPadding>
-            <ProfileCard profile={profiles[currentProfile]}/>
+            {profiles[currentProfile] ? (
+                <>
+                    <ProfileCard profile={profiles[currentProfile]} />
+                </>
+            ) : (
+                <>
+                    <Layout center className={styles.container}>
+                        <div>Профилей больше нет :(</div>
+                    </Layout>
+                </>
+            )}
 
             <Layout horizontal spaceBetween className={styles.container}>
                 <Button type="custom" color={"var(--red)"} circle onClick={() => sendLikeToTarget(false)}>

@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 
 const ProfileTarget = () => {
     const { userProfile, setTarget } = useUserStore();
-    const { allCategories, fetchCategories } = useCategoryStore();
+    const { allCategories, fetchCategories, isLoading, error } = useCategoryStore();
 
     const [isEdit, setIsEdit] = useState<boolean>(false);
 
@@ -22,7 +22,10 @@ const ProfileTarget = () => {
 
     useEffect(() => {
         const targetCategories = allCategories.filter(c => c.type === CategoryType.TARGET)
-        if (targetCategories.length === 0) fetchCategories(CategoryType.TARGET);
+        if (targetCategories.length === 0) {
+            console.log('Fetching target categories...');
+            fetchCategories(CategoryType.TARGET);
+        }
         if (allCategories) {
             const newTargetList: Option[] = targetCategories.map((category) => ({
                 optionName: category.name,
@@ -32,6 +35,13 @@ const ProfileTarget = () => {
         }
     }, [allCategories]);
 
+    // Логируем ошибки
+    useEffect(() => {
+        if (error) {
+            console.error('Category error:', error);
+        }
+    }, [error]);
+
     const set = () => {
         setIsEdit(false);
         setTarget(allCategories.filter(c => c.type === CategoryType.TARGET).find((target) => target.id === +selectedCategory.value));
@@ -40,6 +50,9 @@ const ProfileTarget = () => {
     return (
         <Card title={"Цель поиска"} icon={<Crosshair />}>
             <Layout noPadding>
+                {isLoading && <div>Загрузка целей...</div>}
+                {error && <div style={{color: 'red'}}>Ошибка загрузки целей: {error}</div>}
+                
                 <Layout noPadding horizontal>
                     <CategoryWidget category={userProfile?.target} />
                     {!isEdit && (

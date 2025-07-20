@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 const ProfileInterests = () => {
     const { userProfile, addInterest, removeInterest } = useUserStore();
-    const { allCategories, fetchCategories } = useCategoryStore();
+    const { allCategories, fetchCategories, isLoading, error } = useCategoryStore();
 
     const [selectedCategory, setCategory] = useState<Option | null>(null);
     const [interestList, setInterestList] = useState<Option[]>([]);
@@ -22,7 +22,10 @@ const ProfileInterests = () => {
 
     useEffect(() => {
         const interestCategories = allCategories.filter(c => c.type === CategoryType.INTERESTS)
-        if (interestCategories.length === 0) fetchCategories(CategoryType.INTERESTS);
+        if (interestCategories.length === 0) {
+            console.log('Fetching interest categories...');
+            fetchCategories(CategoryType.INTERESTS);
+        }
         if (allCategories) {
             const newFavoriteList: Option[] = interestCategories.map((category) => ({
                 optionName: category.name,
@@ -31,6 +34,13 @@ const ProfileInterests = () => {
             setInterestList(newFavoriteList);
         }
     }, [allCategories]);
+
+    // Логируем ошибки
+    useEffect(() => {
+        if (error) {
+            console.error('Category error:', error);
+        }
+    }, [error]);
 
     const add = () => {
         if (selectedCategory) addInterest(allCategories.find((interest) => interest.id === +selectedCategory.value));
@@ -45,6 +55,9 @@ const ProfileInterests = () => {
     return (
         <Card title={"Интересы"} icon={<Clapperboard />} subtitle={"Выберите интересы, чтобы найти людей с похожими увлечениями."}>
             <Layout noPadding>
+                {isLoading && <div>Загрузка интересов...</div>}
+                {error && <div style={{color: 'red'}}>Ошибка загрузки интересов: {error}</div>}
+                
                 <Layout horizontal noPadding align wrap>
                     {userProfile.interests?.map((interest) => (
                         <CategoryWidget category={interest} isEdit={isEdit} editCallback={remove} />

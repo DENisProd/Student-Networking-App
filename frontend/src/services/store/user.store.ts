@@ -86,7 +86,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
         })
     },
     fetchUserProfile: () => {
-        userService.fetchUserProfile(null).then(res => {
+        userService.fetchUserProfile(null, null).then(res => {
             set({ userProfile: res });
         })
     },

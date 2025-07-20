@@ -12,7 +12,7 @@ import { getListOfTypes } from "@/services/utils/optionListFromObject";
 import React, { useEffect } from "react";
 
 const CategoryManagementPage = () => {
-    const { selectedCategory, allCategories, fetchCategories, setSelectedCategory } = useCategoryStore();
+    const { selectedCategory, allCategories, fetchCategories, setSelectedCategory, isLoading, error } = useCategoryStore();
 
     const categoriesList = getListOfTypes(categoryTypeList);
 
@@ -24,7 +24,16 @@ const CategoryManagementPage = () => {
         refreshCategories();
     }, [selectedCategory]);
 
+    // Логируем для отладки
+    useEffect(() => {
+        console.log('CategoryManagementPage - allCategories:', allCategories);
+        console.log('CategoryManagementPage - selectedCategory:', selectedCategory);
+        console.log('CategoryManagementPage - isLoading:', isLoading);
+        console.log('CategoryManagementPage - error:', error);
+    }, [allCategories, selectedCategory, isLoading, error]);
+
     const refreshCategories = () => {
+        console.log('Refreshing categories for type:', selectedCategory);
         fetchCategories(selectedCategory);
     };
 
@@ -34,6 +43,9 @@ const CategoryManagementPage = () => {
                 <Typography text={"Редактирование категорий"} variant="h2" />
             </HeaderContainer>
             <Layout>
+                {isLoading && <div>Загрузка категорий...</div>}
+                {error && <div style={{color: 'red'}}>Ошибка: {error}</div>}
+                
                 <Layout noPadding horizontal>
                     {categoriesList.map(category => (
                         <Button 
@@ -45,6 +57,10 @@ const CategoryManagementPage = () => {
                         </Button>
                     ))}
                 </Layout>
+
+                <Button onClick={refreshCategories} disabled={isLoading}>
+                    Обновить категории
+                </Button>
 
                 <CreateCategoryForm refresh={refreshCategories} />
 

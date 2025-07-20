@@ -11,4 +11,8 @@ export const routes = {
     Search: "/search",
     CategoryManagement: "/admin/category",
     Login: "/login",
+    Networking: "/networking",
+    Vacancies: "/vacancies",
+    Startups: "/startups",
+    News: "/news",
 }

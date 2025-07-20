@@ -1,0 +1,33 @@
+.card {
+  min-width: 260px;
+  max-width: 300px;
+  background: var(--background-tile, #fff);
+  border: 1px solid var(--border-color, #eee);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  color: var(--text-secondary, #888);
+  font-size: 0.9em;
+}
+
+.startup {
+  font-size: 0.95em;
+  color: var(--primary, #1976d2);
+  font-weight: 600;
+}
+
+.content {
+  font-size: 0.95em;
+  color: var(--text-secondary, #888);
+} 

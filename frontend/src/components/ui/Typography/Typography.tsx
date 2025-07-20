@@ -7,14 +7,15 @@ interface Props {
     variant: "h1" | "h2" | "h3" | "h4" | "p";
     weight?: "bold" | "italic" | "regular";
     className?: string;
-    vclamp?: boolean;
+    vclamp3?: boolean;
+    vclamp2?: boolean;
     onClamp?: boolean;
     margin?: boolean;
 }
 
-const Typography: React.FC<Props> = ({ text, variant, vclamp, className, onClamp, margin, weight }) => {
+const Typography: React.FC<Props> = ({ text, variant, vclamp2, vclamp3, className, onClamp, margin, weight }) => {
 
-    const baseClassNames = cn(styles.base, onClamp && (vclamp ? styles.vertical_clamp : styles.horizontal_clamp), margin && styles.margin, weight && styles[weight], className )
+    const baseClassNames = cn(styles.base, onClamp && (vclamp2 ? styles.vertical_clamp2 : styles.horizontal_clamp), onClamp && (vclamp3 ? styles.vertical_clamp3 : styles.horizontal_clamp), margin && styles.margin, weight && styles[weight], className )
 
     if (!text) return <div className={styles.wait_block}></div>;
 

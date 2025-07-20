@@ -12,6 +12,10 @@ import CategoryManagementPage from "./pages/admin/categories/CategoryManagementP
 import MatchPage from "./pages/match/MatchPage";
 import MockLoginPage from "./pages/login/MockLoginPage";
 import UserFormPage from "./pages/form/UserFormPage";
+import NetworkingPage from "./pages/networking/NetworkingPage";
+import VacanciesPage from "./pages/vacancies/VacanciesPage";
+import StartupsPage from "./pages/startups/StartupsPage";
+import NewsPage from "./pages/news/NewsPage";
 import { useUserStore } from "./services/store/user.store";
 
 function App() {
@@ -36,6 +40,10 @@ function App() {
                 <Route path={routes.ProfileEdit} element={<ProfileEditPage />} />
                 <Route path={routes.CategoryManagement} element={<CategoryManagementPage />} />
                 <Route path={routes.Login} element={<MockLoginPage />} />
+                <Route path={routes.Networking} element={<NetworkingPage />} />
+                <Route path={routes.Vacancies} element={<VacanciesPage />} />
+                <Route path={routes.Startups} element={<StartupsPage />} />
+                <Route path={routes.News} element={<NewsPage />} />
             </Routes>
             <BottomNavigation />
         </MainLayout>
