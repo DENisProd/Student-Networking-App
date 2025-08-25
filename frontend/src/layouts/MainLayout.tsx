@@ -7,7 +7,7 @@ interface Props {
 
 const MainLayout: React.FC<Props> = ({ children }) => {
     return (
-        <PageLayout>
+        <PageLayout noPadding>
             {children}
         </PageLayout>
     );

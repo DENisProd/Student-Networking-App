@@ -3,6 +3,8 @@ import { useChatStore } from "@/services/store/chat.store";
 import { useUserStore } from "@/services/store/user.store";
 import { Chat } from "@/services/models/Chat";
 import ChatTile from "./ChatTile";
+import Layout from "@/components/ui/Layout/Layout";
+import Typography from "@/components/ui/Typography/Typography";
 
 export function ChatList({ onSelect }: { onSelect: (chatId: string) => void }) {
   const { chats, fetchChats } = useChatStore();
@@ -19,13 +21,13 @@ export function ChatList({ onSelect }: { onSelect: (chatId: string) => void }) {
   };
 
   return (
-    <div>
-      <h3>Чаты</h3>
+    <Layout>
+      <Typography variant="h1" text="Чаты" />
       <ul>
         {chats.map((chat) => (
           <ChatTile chat={chat} key={chat.id} onSelect={handleSelect} user={user}/>
         ))}
       </ul>
-    </div>
+    </Layout>
   );
 } 

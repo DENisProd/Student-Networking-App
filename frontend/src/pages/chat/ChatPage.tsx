@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
-import { ChatBlock } from "@/components/blocks/ChatBlock/ChatBlock";
+import { useEffect, useState } from "react";
+
+import { ChatWindow } from "@/components/ChatWindow";
 import { useUserStore } from "@/services/store/user.store";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { ChatList } from "@/components/widgets/ChatList/ChatList";
 
 function getQueryParam(search: string, key: string) {
@@ -13,7 +15,7 @@ const ChatPage = () => {
   const [targetUserId, setTargetUserId] = useState<string | null>(null);
   const { user } = useUserStore();
   const location = useLocation();
-  const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const userParam = getQueryParam(location.search, "recipientId");
@@ -30,11 +32,26 @@ const ChatPage = () => {
     setTargetUserId(null);
   };
 
+  if (isMobile) {
+    if (!selectedChat) {
+      return <ChatList onSelect={setSelectedChat} />;
+    }
+    return (
+      <ChatWindow
+        chatId={selectedChat}
+        userId={user?.id!}
+        recipientId={targetUserId ? +targetUserId : null}
+        onBack={() => setSelectedChat(null)}
+      />
+    );
+  }
+
+  // ПК-версия
   return (
     <div style={{ display: "flex", gap: 24 }}>
-      <ChatList onSelect={handleSelectChat} />
+      <ChatList onSelect={setSelectedChat} />
       {user && (
-        <ChatBlock
+        <ChatWindow
           chatId={selectedChat}
           userId={user.id!}
           recipientId={targetUserId ? +targetUserId : null}

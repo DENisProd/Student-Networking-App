@@ -46,8 +46,8 @@ public class UserProfileService {
     }
 
     public void updateActivity(Long id, boolean isOnline) {
-        userProfileRepository.findById(id).map(userProfile -> {
-            if (isOnline) userProfile.setLastActivityAt(LocalDateTime.now());
+        userProfileRepository.findByUserId(id).map(userProfile -> {
+            userProfile.setLastActivityAt(LocalDateTime.now());
             userProfile.setIsOnline(isOnline);
             return userProfileRepository.save(userProfile);
         });

@@ -1,6 +1,7 @@
 package ru.denis.finder.service.chat;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.denis.finder.dto.chat.MessageDTO;
 import ru.denis.finder.dto.chat.request.MessageSendRequest;
@@ -62,7 +63,8 @@ public class MessageService {
     }
 
     public List<MessageDTO> getMessagesByChatId(UUID chatId) {
-        List<Message> messages = messageRepository.findByChatId(chatId);
+
+        List<Message> messages = messageRepository.findByChatIdOrderBySentAtAsc(chatId, PageRequest.of(0, 100)).getContent();
         return messages.stream()
                 .map(MessageDTO::fromMessage)
                 .toList();
